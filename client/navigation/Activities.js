@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 export default function Activites() {
   return (
     <View style={styles.container}>
-      <Text>Activites h </Text>
+      <Text>Activites</Text>
     </View>
   );
 }
