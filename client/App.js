@@ -8,6 +8,7 @@ import Calendar from './navigation/Calendar';
 import Menu from './navigation/Menu';
 import Shop
  from './navigation/Shop';
+import { Ionicons } from '@expo/vector-icons';
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -26,14 +27,42 @@ export default function App() {
             color: 'black'
           },
           
+          
           }}
           
           >
-        {<Tab.Screen name = "Shop" component = {Shop}/> }
-        <Tab.Screen name = "Activities" component = {Activites} />
-        <Tab.Screen name = "Attendance" component = {Attendance}/>
-        {<Tab.Screen name = "Calendar" component = {Calendar}/> }
-        <Tab.Screen name = "Menu" component = {Menu}/>
+        {<Tab.Screen name = "Shop" component = {Shop}
+        options={{tabBarLabel: 'Home',
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="home" color={color} size={size} />
+        ), }}
+        
+        /> }
+        <Tab.Screen name = "Activities" component = {Activites}
+        options={{tabBarLabel: 'Activities',
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="body-outline" color={color} size={size} />
+        ), }}
+        />
+        <Tab.Screen name = "Attendance" component = {Attendance}
+        options={{tabBarLabel: 'Attendance',
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="hand-left-outline" color={color} size={size} />
+        ), }}
+        
+        />
+        {<Tab.Screen name = "Calendar" component = {Calendar}
+        options={{tabBarLabel: 'Calendar',
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="calendar-outline" color={color} size={size} />
+        ), }}
+        /> }
+        <Tab.Screen name = "Menu" component = {Menu}
+        options={{tabBarLabel: 'Menu',
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="menu-outline" color={color} size={size} />
+        ), }}
+        />
       </Tab.Navigator>
       </NavigationContainer>
   );
