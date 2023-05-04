@@ -1,14 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Activites from './navigation/Activities'
 import Attendance from './navigation/Attendance';
 import Calendar from './navigation/Calendar';
 import Menu from './navigation/Menu';
-import Shop
- from './navigation/Shop';
 import { Ionicons } from '@expo/vector-icons';
+import Shop from './navigation/Shop';
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -26,7 +25,6 @@ export default function App() {
           tabBarLabelStyle: {
             color: 'black'
           },
-          
           
           }}
           
