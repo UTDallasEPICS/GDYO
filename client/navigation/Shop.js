@@ -53,9 +53,9 @@ const styles = StyleSheet.create({
 
   },
   rect: {
-    width: 375,
+    width: 390,
     height: 119,
-    backgroundColor: "#008282",
+    backgroundColor: "#5194D4",
     marginTop: 119
   },
   gdyoShop: {
