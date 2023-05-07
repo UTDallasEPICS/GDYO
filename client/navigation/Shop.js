@@ -60,11 +60,12 @@ const styles = StyleSheet.create({
   },
   gdyoShop: {
     // fontFamily: 'Inter',
-    color: "#121212",
+    color: "white",
     fontSize: 55,
     textAlign: "left",
     marginTop: 28,
-    marginLeft: 7
+    marginLeft: 7,
+    fontWeight:"bold"
   },
   icon: {
     color: "rgba(128,128,128,1)",

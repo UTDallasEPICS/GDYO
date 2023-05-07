@@ -28,9 +28,9 @@ const TabNavigator = () => {
       
       >
     {<Tab.Screen name = "Shop" component = {Shop}
-    options={{tabBarLabel: 'Home',
+    options={{tabBarLabel: 'Shop',
     tabBarIcon: ({ color, size }) => (
-      <Ionicons name="home" color={color} size={size} />
+      <Ionicons name="cart-outline" color={color} size={size} />
     ), }}
     
     /> }

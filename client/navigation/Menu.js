@@ -5,7 +5,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import Icon from "react-native-vector-icons/Entypo";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { LinearGradient } from "expo";
-import ProfileHeader from "../components/ProfileHeader.js"
 
 
 export default function Menu() {
