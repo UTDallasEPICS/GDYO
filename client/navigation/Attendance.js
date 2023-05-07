@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   header: { 
     color: 'white',
     fontWeight: 'bold',
-    fontSize: '32',
+    fontSize: 32,
     position: 'absolute',
     top: 20,
     left: 20,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   classTimesText: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: '18',
+    fontSize: 18,
     position: 'absolute',
     top: -10,
     left: -5,
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   dateTimeText1: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: '14',
+    fontSize: 14,
     position: 'absolute',
     top: -5,
     left: 0,
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   dateTimeText2: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: '14',
+    fontSize: 14,
     position: 'absolute',
     top: -5,
     left: 0,
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   dateTimeText3: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: '14',
+    fontSize: 14,
     position: 'absolute',
     top: -5,
     left: 0,
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   clickHereText: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: '15',
+    fontSize: 15,
     position: 'absolute',
     top: 0,
     left: 0,
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
   dateRectangleText: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: '14',
+    fontSize: 14,
     position: 'absolute',
     top: -5,
     left: 10,
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
   timeRectangleText: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: '14',
+    fontSize: 14,
     position: 'absolute',
     top: -5,
     left: 10,
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
   totalHoursRectangleText: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: '14',
+    fontSize: 14,
     position: 'absolute',
     top: -12.5,
     left: 7.5,

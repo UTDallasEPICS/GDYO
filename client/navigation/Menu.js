@@ -1,10 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import React, {useState, useRef, useEffect} from 'react';
-import { StyleSheet, Text, Pressable, TriangleUp, Button, TouchableOpacity, Alert, View, Image, SafeAreaView, Animated, PanResponder} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import Icon from "react-native-vector-icons/Entypo";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { LinearGradient } from "expo";
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, Alert, View, Image, SafeAreaView } from 'react-native';
 
 
 export default function Menu() {
