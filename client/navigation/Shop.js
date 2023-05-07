@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     marginTop: 119
   },
   gdyoShop: {
-    fontFamily: 'Inter',
+    // fontFamily: 'Inter',
     color: "#121212",
     fontSize: 55,
     textAlign: "left",
@@ -74,12 +74,12 @@ const styles = StyleSheet.create({
     marginLeft: 328
   },
   products: {
-    fontFamily: 'roboto-700',
+    // fontFamily: 'roboto-700',
     color: "#121212",
     fontSize: 20
   },
   loremIpsum: {
-    fontFamily: 'roboto-regular',
+    // fontFamily: 'roboto-regular',
     color: "#121212",
     opacity: 0.52,
     fontSize: 16,
@@ -122,11 +122,11 @@ const styles = StyleSheet.create({
     marginLeft: 7
   },
   loremIpsum2: {
-    fontFamily: 'roboto-700',
+    // fontFamily: 'roboto-700',
     color: "#121212"
   },
   loremIpsum3: {
-    fontFamily: 'roboto-700',
+    // fontFamily: 'roboto-700',
     color: "#121212",
     marginLeft: 50
   },
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     marginLeft: 24
   },
   loremIpsum4: {
-    fontFamily: 'roboto-700',
+    // fontFamily: 'roboto-700',
     color: "#121212",
     marginLeft: 7
   }
