@@ -129,3 +129,6 @@ Each user role has the following permissions:
 
 ## Deployment 
 * AWS EC2
+
+## Links
+* Link to Figma Page (viewing access only): https://www.figma.com/file/FH3uXXYsg6KynXAb3wrSLe/GDYO-App-(Copy)?type=design&node-id=114%3A1196&mode=design&t=f6jgjdkGvA1F9NV4-1
