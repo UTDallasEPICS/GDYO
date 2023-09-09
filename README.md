@@ -1,4 +1,7 @@
 # GDY-CMI-Scheduling Conceptual Overview
+
+### IMPORTANT: For newcomers, please refer to https://github.com/UTDallasEPICS/GDYO/wiki/For-Newcomers
+
 The goal of this project is to have an Android + IOS app (used by admins, instructors, students, and family) that solves the following (4) main issues for The Greater Dallas Youth Orchestra (GDYO): 
 * Attendance
     * Concerts/volunteer/practice/class

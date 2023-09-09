@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      # https://stackoverflow.com/questions/37775702/changing-a-postgres-containers-server-port-in-docker-compose
+      - 5432:5432
+    environment:
+      # https://hub.docker.com/_/postgres: Default values for these values in Docker
+      POSTGRES_DB: gdyo
+      POSTGRES_USER: gdyo
+      POSTGRES_PASSWORD: gdyo
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+
+# https://stackoverflow.com/questions/44284484/docker-compose-share-named-volume-between-multiple-containers
+volumes:
+  postgres-volume:
