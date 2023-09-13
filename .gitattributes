@@ -1,0 +1,4 @@
+# https://shzhangji.com/blog/2022/08/31/configure-git-line-endings-across-oses/#:~:text=In%20Linux%2C%20lines%20end%20with,and%20merge%20may%20break%20unexpectedly.
+
+# Auto detect file types, if no further configs are given. Set end-of-line to LF.
+* text=auto eol=lf
