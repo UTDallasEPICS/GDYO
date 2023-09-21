@@ -1,0 +1,10 @@
+{
+  "name": "epics-gdyo",
+  "version": "1.0.0",
+  "description": "IMPORTANT: For newcomers, please refer to https://github.com/UTDallasEPICS/GDYO/wiki/For-Newcomers",
+  "scripts": {
+    "renorm": "git add --renormalize ."
+  },
+  "author": "",
+  "license": "ISC"
+}
