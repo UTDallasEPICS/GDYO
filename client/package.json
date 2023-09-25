@@ -6,7 +6,10 @@
     "start": "expo start --tunnel",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "eas": "powershell -ExecutionPolicy Bypass -File \"%homedrive%%homepath%\\AppData\\Roaming\\npm\\eas.ps1\"",
+    "remoteSigned": "powershell Set-ExecutionPolicy RemoteSigned -Scope CurrentUser",
+    "restricted": "powershell Set-ExecutionPolicy Restricted -Scope CurrentUser"
   },
   "dependencies": {
     "@expo/ngrok": "^4.1.1",
@@ -24,7 +27,8 @@
     "react-native-svg-transformer": "^1.0.0",
     "react-native-web": "^0.19.8",
     "typescript": "^5.1.3",
-    "babel-plugin-root-import": "^6.6.0"
+    "babel-plugin-root-import": "^6.6.0",
+    "expo-dev-client": "~2.4.11"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
