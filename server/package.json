@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "src/server.js",
   "scripts": {
+    "postinstall": "npm run copy-env",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && node dist/server",
     "dev": "nodemon --watch src --ext ts --exec \"npm run start\"",
@@ -10,7 +11,7 @@
     "pdev": "prisma migrate dev",
     "pdep": "prisma migrate deploy",
     "pgen": "prisma generate",
-    "env": "node env.js"
+    "copy-env": "node copy-env.js"
   },
   "author": "",
   "license": "ISC",
