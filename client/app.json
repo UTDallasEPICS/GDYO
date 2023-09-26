@@ -34,6 +34,15 @@
         "projectId": "98a5747c-7644-4682-906f-fe73112821fa"
       }
     },
-    "owner": "gdyo"
+    "owner": "gdyo",
+
+    "plugins": [
+      [
+        "react-native-auth0",
+        {
+          "domain": "gdyo-auth.us.auth0.com"
+        }
+      ]
+    ]
   }
 }
