@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "client",
-    "slug": "client",
+    "name": "GDYO App",
+    "slug": "gdyo-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,18 +11,17 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gdyo.app"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.kjernest01.client"
+      "package": "com.gdyo.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -32,8 +31,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "0a12f132-57c2-4b32-8c0d-a0e2c2d86d05"
+        "projectId": "98a5747c-7644-4682-906f-fe73112821fa"
       }
-    }
+    },
+    "owner": "gdyo"
   }
 }

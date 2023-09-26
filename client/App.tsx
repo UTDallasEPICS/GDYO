@@ -1,3 +1,6 @@
+import "expo-dev-client";
+
+// eslint-disable-next-line perfectionist/sort-imports
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
