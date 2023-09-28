@@ -1,79 +1,93 @@
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "App";
 import React from "react";
-
-import Activites from "./Activities";
-import Attendance from "./Attendance";
-import Calendar from "./Calendar";
-import Menu from "./Menu";
-import Shop from "./Shop";
+import { Pressable, Text, View } from "react-native";
+import Calendar from "screens/Calendar";
+import Home from "screens/Home";
+import { useCustomTheme } from "utils/theme";
 
 const Tab = createBottomTabNavigator();
 
-const TabNavigator = () => {
+type Props = NativeStackScreenProps<RootStackParamList, "TabNavigator">;
+
+const TabNavigator = (props: Props) => {
+  const theme = useCustomTheme();
+
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        headerStyle: { backgroundColor: "white" },
-        headerTitleStyle: { fontSize: 23, color: "white" },
-        tabBarStyle: { backgroundColor: "white" },
-        tabBarLabelStyle: {
-          color: "black",
-        },
       }}
     >
-      {
-        <Tab.Screen
-          name="Shop"
-          component={Shop}
-          options={{
-            tabBarLabel: "Shop",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="cart-outline" color={color} size={size} />
-            ),
-          }}
-        />
-      }
       <Tab.Screen
-        name="Activities"
-        component={Activites}
+        name="Home"
+        component={Home}
         options={{
-          tabBarLabel: "Activities",
+          tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="body-outline" color={color} size={size} />
+            <Ionicons name="home" color={color} size={size} />
           ),
         }}
       />
+
       <Tab.Screen
-        name="Attendance"
-        component={Attendance}
+        name="Calendar"
+        component={Calendar}
         options={{
-          tabBarLabel: "Attendance",
+          tabBarLabel: "Calendar",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="hand-left-outline" color={color} size={size} />
+            <Ionicons name="calendar-outline" color={color} size={size} />
           ),
         }}
       />
-      {
-        <Tab.Screen
-          name="Calendar"
-          component={Calendar}
-          options={{
-            tabBarLabel: "Calendar",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="calendar-outline" color={color} size={size} />
-            ),
-          }}
-        />
-      }
+
+      {/* https://stackoverflow.com/questions/70884055/how-to-add-a-button-on-the-bottomtabnavigator-rather-than-navigating-to-a-screen */}
       <Tab.Screen
-        name="Menu"
-        component={Menu}
+        name="Login"
+        component={Calendar}
         options={{
-          tabBarLabel: "Menu",
+          tabBarLabel: "Login",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="menu-outline" color={color} size={size} />
+            <MaterialIcons name="login" color={color} size={size} />
+          ),
+          tabBarButton: (buttonProps) => (
+            <Pressable
+              style={buttonProps.style}
+              onPress={() => {
+                props.navigation.navigate("LoginScreen");
+              }}
+            >
+              <View
+                style={{
+                  flex: 1,
+                }}
+              >
+                <View
+                  style={{
+                    position: "absolute",
+                    alignSelf: "center",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "100%",
+                    width: "100%",
+                    minWidth: 25,
+                    opacity: 1,
+                  }}
+                >
+                  <MaterialIcons
+                    name="login"
+                    color={theme.colors.secondaryText}
+                    size={25}
+                  />
+                </View>
+              </View>
+
+              <Text style={{ color: theme.colors.secondaryText, fontSize: 10 }}>
+                Login
+              </Text>
+            </Pressable>
           ),
         }}
       />
