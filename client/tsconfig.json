@@ -20,11 +20,13 @@
   // }
 
   "compilerOptions": {
+    "types": ["node"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["/*"]
     },
-    "typeRoots": ["/@types"]
+    "typeRoots": ["/@types", "node_modules/@types"]
   },
+
   "extends": "expo/tsconfig.base"
 }

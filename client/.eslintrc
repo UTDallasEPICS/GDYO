@@ -43,13 +43,16 @@
         "type": "natural",
         "order": "asc",
         "groups": [
+          // https://eslint-plugin-perfectionist.azat.io/rules/sort-imports
+
+          "side-effect",
+
           "type",
           ["builtin", "external"],
           "internal-type",
           "internal",
           ["parent-type", "sibling-type", "index-type"],
           ["parent", "sibling", "index"],
-          "side-effect",
           "style",
           "object",
           "unknown"
