@@ -1,8 +1,8 @@
-import { useTheme } from "@react-navigation/native";
 import { StyleSheet, Text, View } from "react-native";
+import { useCustomTheme } from "utils/theme";
 
 export default function Home() {
-  const theme = useTheme();
+  const theme = useCustomTheme();
 
   return (
     <View style={styles.container}>

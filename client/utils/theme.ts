@@ -4,8 +4,13 @@ export const Theme = {
   ...DarkTheme,
   colors: {
     ...DarkTheme.colors,
+
     primary: "rgb(244, 211, 94)",
     secondaryText: "rgb(124, 124, 125)",
+
+    paperBackground: "rgb(12, 63, 76)",
+    paperBackgroundHighlight: "rgb(37, 103, 127)",
+    paperSecondaryText: "rgb(214, 212, 212)",
   },
 };
 
