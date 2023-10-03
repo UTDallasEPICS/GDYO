@@ -6,6 +6,7 @@ export const Theme = {
     ...DarkTheme.colors,
 
     primary: "rgb(244, 211, 94)",
+    highlightText: "rgb(249, 154, 14)",
     secondaryText: "rgb(124, 124, 125)",
 
     paperBackground: "rgb(12, 63, 76)",
