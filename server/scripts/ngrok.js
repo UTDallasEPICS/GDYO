@@ -36,7 +36,7 @@ ngrok
         }
 
         var result = data.replace(
-          /EXPO_PUBLIC_API_URL = ".+"/g,
+          /EXPO_PUBLIC_API_URL = ".*"/g,
           `EXPO_PUBLIC_API_URL = "${url}"`
         );
 
