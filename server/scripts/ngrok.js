@@ -12,6 +12,8 @@ if (process.env.NODE_ENV === "production") {
 
 const ngrok = require("ngrok");
 const nodemon = require("nodemon");
+const path = require("path");
+const fs = require("fs");
 
 ngrok
   .connect({
@@ -21,7 +23,35 @@ ngrok
   .then((url) => {
     console.log(`ngrok tunnel opened at: ${url}`);
 
-    // nodemon --watch src --ext ts --exec \"npm run start\"
+    // 1. Write env file in client folder
+
+    const filename = path.join(__dirname, "../../client/.env");
+
+    const exist = fs.existsSync(filename);
+
+    if (exist) {
+      fs.readFile(filename, "utf8", function (err, data) {
+        if (err) {
+          return console.log(err);
+        }
+
+        var result = data.replace(
+          /EXPO_PUBLIC_API_URL = ".+"/g,
+          `EXPO_PUBLIC_API_URL = "${url}"`
+        );
+
+        fs.writeFile(filename, result, "utf8", function (err) {
+          if (err) return console.log(err);
+        });
+      });
+    } else {
+      console.log(
+        "\n--- Ngrok Client Env Error: No client `.env` file found. Please run copy-env on client first."
+      );
+      process.exit(1);
+    }
+
+    // 2. nodemon --watch src --ext ts --exec \"npm run start\"
     nodemon({
       watch: "src",
       ext: "ts",
