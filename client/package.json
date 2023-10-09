@@ -50,6 +50,7 @@
     "@typescript-eslint/parser": "^5.60.1",
     "concurrently": "^8.2.0",
     "dotenv": "^16.3.1",
+    "eas-cli": "^5.4.0",
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-perfectionist": "^1.4.0",
