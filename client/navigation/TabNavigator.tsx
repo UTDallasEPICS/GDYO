@@ -4,9 +4,10 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "App";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
-import CalendarScreen from "screens/CalendarScreen/CalendarScreen";
-import Home from "screens/Home";
 import { useCustomTheme } from "utils/theme";
+
+import CalendarScreen from "../pages/CalendarScreen/CalendarScreen";
+import Home from "../pages/Home";
 
 const Tab = createBottomTabNavigator();
 

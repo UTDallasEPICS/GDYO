@@ -10,7 +10,7 @@ import { report } from "utils/error";
 import { Theme } from "utils/theme";
 
 import TabNavigator from "./navigation/TabNavigator";
-import LoginScreen from "./screens/LoginScreen";
+import LoginScreen from "./pages/LoginScreen";
 
 export type RootStackParamList = {
   TabNavigator: undefined;
