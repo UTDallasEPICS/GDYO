@@ -2,6 +2,30 @@ import express, { Express } from "express";
 import helmet from "helmet";
 import * as http from "http";
 
+import EventRouter from "./routes/event";
+
+/*
+  http://localhost:4000
+  ngrok: http://localhost:4000 -> https://f779-47-188-107-188.ngrok-free.app
+  fetch(https://f779-47-188-107-188.ngrok-free.app/event/create-single-event)
+
+  // GET
+  const query = req.query;
+
+  // POST, PUT
+  const body = req.body;
+
+  - express
+  - tsconfig (typescript, compiling)
+  - ngrok (proxy a localhost url to the internet)
+  - .env
+  - prisma
+  - docker
+  - HTTP status code
+  - JS Promises
+  - bodyParser.json()
+*/
+
 export default class App {
   server: http.Server | null | undefined = null;
   app: Express | null | undefined = null;
@@ -36,6 +60,8 @@ export default class App {
       console.log("--- Query", query);
       res.send({ payload: "Hello World!" });
     });
+
+    app.use("/event", EventRouter);
 
     // custom 404
     app.use((_req, res, _next) => {

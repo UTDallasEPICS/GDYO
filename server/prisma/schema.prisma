@@ -2,122 +2,20 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
-//@relation(fields: [parentProfile], references: [id])
-model User {
-  email             String      @unique
-  parentProfile     Parent? // relates to Parent model
-  studentProfile    Student? // relates to Student model
-  instructorProfile Instructor? // relates to Instructor model
-  parentId          Int?        @unique
-  studentId         Int?        @unique
-  instructorId      Int?        @unique
-  id                Int         @id @default(autoincrement())
-  street            String
-  city              String
-  state             String
-  zipCode           String
-  events            Event[]
-  hours             Float
-}
-
-// Define the data model for the Student table
-model Student {
-  id            Int          @id @default(autoincrement())
-  firstName     String
-  lastName      String
-  email         String
-  parent        Parent       @relation(fields: [parentId], references: [id])
-  parentId      Int
-  phoneNumber   String
-  classNumber   String
-  dateOfBirth   DateTime
-  gender        String
-  miscInfo      String?
-  user          User         @relation(fields: [userId], references: [id])
-  userId        Int          @unique
-  paidThisMonth Boolean
-  attendance    Attendance[]
-  orders        String[]
-  classes       Class[]
-}
-
-// Define the data model for the Parent table
-model Parent {
-  id          Int       @id @default(autoincrement())
-  email       String
-  phoneNumber String
-  students    Student[]
-  user        User      @relation(fields: [userId], references: [id])
-  userId      Int       @unique
-}
-
-// Define the data model for the Volunteer table
-
-// Define the data model for the VolunteerEvent table
 model Event {
-  id         Int      @id @default(autoincrement())
-  eventInfo  String
-  eventDate  DateTime
-  eventTime  String
-  capacity   Int
-  eventName  String
-  volunteers User[]
+    // Recurring event model design for later: https://vertabelo.com/blog/again-and-again-managing-recurring-events-in-a-data-model/
+    id          Int      @id @default(autoincrement())
+    name        String
+    startTime   DateTime
+    endTime     DateTime
+    location    String
+    description String
 }
-
-// Define the data model for the Attendance table
-model Attendance {
-  id        Int        @id @default(autoincrement())
-  student   Student    @relation(fields: [studentId], references: [id])
-  studentId Int
-  days      DateTime[]
-}
-
-// Define the data model for the Class table
-model Class {
-  id           Int        @id @default(autoincrement())
-  timeOfClass  String
-  typeOfClass  String
-  instructor   Instructor @relation(fields: [instructorId], references: [id])
-  instructorId Int
-  students     Student[]
-}
-
-// Define the data model for the Instructor table
-model Instructor {
-  id          Int     @id @default(autoincrement())
-  firstName   String
-  lastName    String
-  username    String  @unique
-  password    String
-  email       String
-  phoneNumber String
-  classes     Class[] //classes the instructor leads
-  user        User    @relation(fields: [userId], references: [id])
-  userId      Int     @unique
-}
-
-// Define the data model for the Admin table
-model Admin {
-  id          Int    @id @default(autoincrement())
-  firstName   String
-  lastName    String
-  username    String @unique
-  password    String
-  email       String
-  phoneNumber String
-}
-
-// Define the data model for the Address table
-
-// use auth 0 for auth - no need to store user/pass, just match the email in our DB with the email auth 0 gives us
-// use a single Users table with 'roles', or links to other tables
-
-// eg User has Parent?, Admin? profiles
