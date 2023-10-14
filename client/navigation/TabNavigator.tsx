@@ -6,8 +6,8 @@ import React from "react";
 import { Pressable, Text, View } from "react-native";
 import { useCustomTheme } from "utils/theme";
 
-import CalendarScreen from "../Test/CalendarScreen/CalendarScreen";
-import Home from "../Test/Home";
+import CalendarScreen from "../screens/CalendarScreen/CalendarScreen";
+import Home from "../screens/Home";
 
 const Tab = createBottomTabNavigator();
 

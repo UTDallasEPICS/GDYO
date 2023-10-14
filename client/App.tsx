@@ -9,8 +9,8 @@ import { Auth0Provider } from "react-native-auth0";
 import { report } from "utils/error";
 import { Theme } from "utils/theme";
 
-import LoginScreen from "./Test/LoginScreen";
 import TabNavigator from "./navigation/TabNavigator";
+import LoginScreen from "./screens/LoginScreen";
 
 export type RootStackParamList = {
   TabNavigator: undefined;
