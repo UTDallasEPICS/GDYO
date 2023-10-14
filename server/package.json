@@ -17,6 +17,9 @@
     "copy-env": "node scripts/copy-env.js",
     "clean-env": "rimraf .env"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
