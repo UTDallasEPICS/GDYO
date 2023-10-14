@@ -4,7 +4,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "App";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
-import Calendar from "screens/Calendar";
+import CalendarScreen from "screens/CalendarScreen/CalendarScreen";
 import Home from "screens/Home";
 import { useCustomTheme } from "utils/theme";
 
@@ -33,8 +33,8 @@ const TabNavigator = (props: Props) => {
       />
 
       <Tab.Screen
-        name="Calendar"
-        component={Calendar}
+        name="CalendarScreen"
+        component={CalendarScreen}
         options={{
           tabBarLabel: "Calendar",
           tabBarIcon: ({ color, size }) => (
@@ -46,7 +46,7 @@ const TabNavigator = (props: Props) => {
       {/* https://stackoverflow.com/questions/70884055/how-to-add-a-button-on-the-bottomtabnavigator-rather-than-navigating-to-a-screen */}
       <Tab.Screen
         name="Login"
-        component={Calendar}
+        component={Home} // Any component works. Does not matter here.
         options={{
           tabBarLabel: "Login",
           tabBarIcon: ({ color, size }) => (
