@@ -9,7 +9,7 @@ import { report } from "utils/error";
 import { useCustomTheme } from "utils/theme";
 
 import { generateTheme } from "./CalendarTheme";
-import EventsBottomView from "./EventsBottomView";
+import EventsBottomView from "./EventsBottomView/EventsBottomView";
 
 export default function CalendarScreen() {
   const theme = useCustomTheme();

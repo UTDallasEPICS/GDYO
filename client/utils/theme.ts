@@ -15,6 +15,8 @@ export const Theme = {
     paperBackground: "rgb(12, 63, 76)",
     paperBackgroundHighlight: "rgb(37, 103, 127)",
     paperSecondaryText: "rgb(214, 212, 212)",
+
+    paperBackgroundDark: "rgb(5, 25, 30)",
   },
 
   navbarHeight: 60,

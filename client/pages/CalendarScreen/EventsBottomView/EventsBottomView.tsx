@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { CustomTheme, useCustomTheme } from "utils/theme";
 
+import EventsItem from "./EventsItem";
+
 export default function EventsBottomView() {
   // min time between scroll events (in milliseconds)
   const minScrollEventThrottle = 100;
@@ -118,6 +120,9 @@ export default function EventsBottomView() {
           }),
         }}
       >
+        <Text style={{ fontWeight: "700", color: "#C9C4C4" }}>
+          Oct 15, 2023
+        </Text>
         <ScrollView
           style={{
             flex: 1,
@@ -127,8 +132,8 @@ export default function EventsBottomView() {
           }}
         >
           <View style={styles.bottomSheetContent}>
-            {[
-              "#1A4B9C",
+            {/* {[
+              "#735BF1",
               "#FC32F4",
               "#32FCC9",
               "#FC8F32",
@@ -153,9 +158,10 @@ export default function EventsBottomView() {
                 key={i}
                 style={{ backgroundColor: color, height: 60, width: "100%" }}
               >
-                <Text>Test</Text>
+                <Text>TestingText</Text>
               </View>
-            ))}
+            ))} }*/}
+            <EventsItem />
           </View>
         </ScrollView>
       </Animated.View>
@@ -177,7 +183,7 @@ const makeStyles = (theme: CustomTheme) =>
       right: 0,
       bottom: 0,
 
-      backgroundColor: theme.colors.background,
+      backgroundColor: theme.colors.paperBackgroundDark,
 
       borderTopLeftRadius: 24,
       borderTopRightRadius: 24,
