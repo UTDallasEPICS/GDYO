@@ -2,13 +2,14 @@ import { AntDesign } from "@expo/vector-icons";
 import { CalendarEvent, fetchCalendarEvents } from "models/Event";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { DateData, MarkedDates } from "react-native-calendars/src/types";
 import { report } from "utils/error";
 import { useCustomTheme } from "utils/theme";
 
 import { generateTheme } from "./CalendarTheme";
+import EventsBottomView from "./EventsBottomView";
 
 export default function CalendarScreen() {
   const theme = useCustomTheme();
@@ -54,7 +55,7 @@ export default function CalendarScreen() {
         marked[key].periods = [];
       }
 
-      if (marked[key].periods.length < 3) {
+      if (marked[key].periods.length < 1) {
         marked[key].periods.push({
           startingDay: true,
           endingDay: true,
@@ -98,9 +99,7 @@ export default function CalendarScreen() {
         markedDates={getMarkedEvents()}
       />
 
-      <View style={styles.subView}>
-        <Text style={{ color: theme.colors.text }}>Screen 2</Text>
-      </View>
+      <EventsBottomView />
     </View>
   );
 }
@@ -112,11 +111,17 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
 
-  subView: {
+  scrollView: {
     flex: 1,
     width: "100%",
     display: "flex",
-    justifyContent: "center",
+  },
+
+  eventsDayView: {
+    width: "100%",
+    display: "flex",
     alignItems: "center",
+    gap: 20,
+    padding: 20,
   },
 });
