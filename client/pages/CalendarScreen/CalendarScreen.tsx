@@ -21,17 +21,35 @@ export default function CalendarScreen() {
 
   const [events, setEvents] = useState<CalendarEvent[]>([]);
 
+  const [eventsOnDate, setEventsOnDate] = useState<
+    Record<string, CalendarEvent[]> // Date -> CalendarEvent[] on that date
+  >({});
+
   const [calendarScreenViewHeight, setCalendarScreenViewHeight] = useState(0);
 
   useEffect(() => {
     fetchCalendarEvents()
       .then((calEvents) => {
         setEvents(calEvents);
+
+        const eventsOnDateTmp: Record<string, CalendarEvent[]> = {};
+        for (const event of calEvents) {
+          const key = moment(event.startTime).format("YYYY-MM-DD");
+          if (!(key in eventsOnDateTmp)) {
+            eventsOnDateTmp[key] = [];
+          }
+          eventsOnDateTmp[key].push(event);
+        }
+        setEventsOnDate(eventsOnDateTmp);
       })
       .catch((err) => {
         report(err);
       });
   }, []);
+
+  useEffect(() => {
+    console.log("---", eventsOnDate[chosenDate]);
+  }, [chosenDate, JSON.stringify(eventsOnDate)]);
 
   const onDayPress = (date: DateData) => {
     setChosenDate(date.dateString);
@@ -39,7 +57,7 @@ export default function CalendarScreen() {
 
   const getMarkedEvents = (): MarkedDates => {
     const colors = [
-      "rgba(115, 91, 242, 1)",
+      "rgba(109, 41, 246, 1)",
       "rgba(255, 166, 158, 1)",
       "rgba(255, 255, 255, 0.3)",
     ];

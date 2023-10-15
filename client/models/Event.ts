@@ -22,7 +22,7 @@ const TestLocations = [
 ];
 
 export const generateEventsInSameColumnWithToday = (): CalendarEvent[] => {
-  const id = 1;
+  const id = "test";
   const today = new Date();
   const events: CalendarEvent[] = [];
 
