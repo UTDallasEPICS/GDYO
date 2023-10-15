@@ -1,57 +1,115 @@
 export type CalendarEvent = {
   id: string;
+  name: string;
   startTime: Date;
   endTime: Date;
-  name: string;
   location: string;
   description: string;
 };
 
-const CalendarEventsMock: CalendarEvent[] = [
-  {
-    id: "1",
-    startTime: new Date(2023, 9, 3, 17, 0),
-    endTime: new Date(2023, 9, 3, 18, 0),
-    name: "GDYO Holiday Magic",
-    location: "Meyerson Symphony Center",
-    description: "",
-  },
-  {
-    id: "2",
-    startTime: new Date(2023, 9, 3, 19, 0),
-    endTime: new Date(2023, 9, 3, 20, 0),
-    name: "Viola is the Greatest",
-    location: "Moody Performance Hall",
-    description: "",
-  },
-  {
-    id: "3",
-    startTime: new Date(2023, 9, 3, 12, 0),
-    endTime: new Date(2023, 9, 3, 13, 0),
-    name: "GDYO Holiday Magic",
-    location: "Meyerson Symphony Center",
-    description: "",
-  },
-  {
-    id: "4",
-    startTime: new Date(2023, 9, 4, 14, 0),
-    endTime: new Date(2023, 9, 4, 15, 0),
-    name: "Viola is the Greatest",
-    location: "Moody Performance Hall",
-    description: "",
-  },
-  {
-    id: "5",
-    startTime: new Date(2023, 9, 4, 16, 0),
-    endTime: new Date(2023, 9, 4, 17, 0),
-    name: "GDYO Holiday Magic",
-    location: "Meyerson Symphony Center",
-    description: "",
-  },
+const TestEventNames = [
+  "GDYO Holiday Magic",
+  "Viola is the Greatest",
+  "Highest Human Note",
+  "Promised Neverland",
 ];
+
+const TestLocations = [
+  "Meyerson Symphony Center",
+  "Moody Performance Hall",
+  "Tomorrow Land",
+  "Disney Land",
+];
+
+export const generateEventsInSameColumnWithToday = (): CalendarEvent[] => {
+  const id = 1;
+  const today = new Date();
+  const events: CalendarEvent[] = [];
+
+  let startDate = today.getDate();
+  while (startDate >= 0) {
+    startDate -= 7;
+  }
+  startDate += 7;
+
+  const lastDateOfMonth = new Date(
+    today.getFullYear(),
+    today.getMonth() + 1,
+    0
+  ).getDate();
+
+  while (startDate < lastDateOfMonth) {
+    events.push({
+      id: id.toString(),
+      name: TestEventNames[Math.round(Math.random() * TestEventNames.length)],
+      startTime: new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        startDate,
+        12,
+        0
+      ),
+      endTime: new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        startDate,
+        13,
+        0
+      ),
+      location: TestLocations[Math.round(Math.random() * TestLocations.length)],
+      description: "",
+    });
+
+    events.push({
+      id: id.toString(),
+      name: TestEventNames[Math.round(Math.random() * TestEventNames.length)],
+      startTime: new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        startDate,
+        14,
+        0
+      ),
+      endTime: new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        startDate,
+        15,
+        0
+      ),
+      location: TestLocations[Math.round(Math.random() * TestLocations.length)],
+      description: "",
+    });
+
+    events.push({
+      id: id.toString(),
+      name: TestEventNames[Math.round(Math.random() * TestEventNames.length)],
+      startTime: new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        startDate,
+        15,
+        0
+      ),
+      endTime: new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        startDate,
+        16,
+        0
+      ),
+      location: TestLocations[Math.round(Math.random() * TestLocations.length)],
+      description: "",
+    });
+
+    startDate += 7;
+  }
+
+  return events;
+};
 
 export const fetchCalendarEvents = (): Promise<CalendarEvent[]> => {
   return new Promise((resolve) => {
-    resolve(CalendarEventsMock);
+    resolve(generateEventsInSameColumnWithToday());
   });
 };

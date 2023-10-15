@@ -20,6 +20,11 @@ const TabNavigator = (props: Props) => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        tabBarStyle: {
+          paddingTop: 8,
+          paddingBottom: 8,
+          height: theme.navbarHeight,
+        },
       }}
     >
       <Tab.Screen
