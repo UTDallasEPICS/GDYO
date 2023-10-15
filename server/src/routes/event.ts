@@ -1,7 +1,6 @@
 import express from "express";
 import { report } from "@/utils/error";
 import context from "@/context";
-
 const router = express.Router();
 
 router.post("/add-single-event", async (req, res) => {
@@ -31,19 +30,33 @@ router.post("/add-single-event", async (req, res) => {
 });
 
 
-
-router.get("/fetch-month-events", async (req, res) => {
+router.get("/fetch-time-specific-events", async (req, res) => {
+  const { prisma } = context;
   try {
-    const { dateTime } = req.query;
-    var date = dateTime.toString().split(' ');
+    const { startTime, endTime } = req.query as {
+      startTime: string;
+      endTime: string;
+    };
+
+    const startDate = new Date(startTime);
+    const endDate = new Date(endTime);
+
+    if (endDate <= startDate) {
+      return res.status(400).json({ error: "Bad Time Range" });
+    }
 
     const events = await prisma.event.findMany({
       where: {
-        startTime: 
+        AND: [
+          { startTime: { gte: startDate } },
+          { endTime: { lte: endDate } }
+        ]
       }
-
-
     })
-  })
+  } catch (error) {
+    report(error);
+    res.status(500).json({ error: "internal Server error" });
+  }
+});
 
 export default router;
