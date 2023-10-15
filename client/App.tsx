@@ -35,6 +35,10 @@ export default function App() {
       )}`,
       {
         method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
       }
     )
       .then(async (res) => {
@@ -42,7 +46,7 @@ export default function App() {
         console.log("--- Data", data);
       })
       .catch((err) => {
-        report(err);
+        report(`--- TEST - ${err}`);
       });
   }, []);
 

@@ -9,7 +9,7 @@ import { report } from "utils/error";
 import { useCustomTheme } from "utils/theme";
 
 import { generateTheme } from "./CalendarTheme";
-import EventsBottomView from "./EventsBottomView";
+import EventsBottomView from "./EventsBottomView/EventsBottomView";
 
 export default function CalendarScreen() {
   const theme = useCustomTheme();
@@ -20,6 +20,8 @@ export default function CalendarScreen() {
   );
 
   const [events, setEvents] = useState<CalendarEvent[]>([]);
+
+  const [calendarScreenViewHeight, setCalendarScreenViewHeight] = useState(0);
 
   useEffect(() => {
     fetchCalendarEvents()
@@ -55,7 +57,7 @@ export default function CalendarScreen() {
         marked[key].periods = [];
       }
 
-      if (marked[key].periods.length < 1) {
+      if (marked[key].periods.length < 3) {
         marked[key].periods.push({
           startingDay: true,
           endingDay: true,
@@ -74,7 +76,12 @@ export default function CalendarScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={styles.container}
+      onLayout={(event) => {
+        setCalendarScreenViewHeight(event.nativeEvent.layout.height);
+      }}
+    >
       <Calendar
         style={{
           paddingTop: 50,
@@ -99,7 +106,7 @@ export default function CalendarScreen() {
         markedDates={getMarkedEvents()}
       />
 
-      <EventsBottomView />
+      <EventsBottomView calendarScreenViewHeight={calendarScreenViewHeight} />
     </View>
   );
 }

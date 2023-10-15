@@ -1,3 +1,4 @@
+import { AntDesign } from "@expo/vector-icons";
 import React, { Fragment, useState } from "react";
 import {
   ScrollView,
@@ -7,10 +8,15 @@ import {
   Animated,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  TouchableOpacity,
 } from "react-native";
 import { CustomTheme, useCustomTheme } from "utils/theme";
 
-export default function EventsBottomView() {
+type Props = {
+  calendarScreenViewHeight: number;
+};
+
+export default function EventsBottomView(props: Props) {
   // min time between scroll events (in milliseconds)
   const minScrollEventThrottle = 100;
 
@@ -28,6 +34,7 @@ export default function EventsBottomView() {
   const styles = makeStyles(theme);
 
   const [bottomViewDefaultHeight, setBottomViewDefaultHeight] = useState(0);
+  const [isBottomViewExpanded, setIsBottomViewExpanded] = useState(false);
 
   const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     // https://stackoverflow.com/questions/72601597/increase-height-of-a-view-on-swipe-up-in-react-native-expo
@@ -49,10 +56,12 @@ export default function EventsBottomView() {
     lastScrollEventDateTime = Date.now();
     prevOffset = currentOffset;
 
-    if (diff < 0) {
-      // Scrolling up
-      shrinkScrollView();
-    } else {
+    // if (diff < 0) {
+    //   // Scrolling up
+    //   shrinkScrollView();
+    // }
+
+    if (diff >= 0) {
       // Scrolling down
       expandScrollView();
     }
@@ -66,6 +75,8 @@ export default function EventsBottomView() {
     }
 
     isAnimating = true;
+    setIsBottomViewExpanded(true);
+
     Animated.timing(scrollViewAnim, {
       toValue: 1,
       duration: 500,
@@ -85,6 +96,8 @@ export default function EventsBottomView() {
     }
 
     isAnimating = true;
+    setIsBottomViewExpanded(false);
+
     Animated.timing(scrollViewAnim, {
       toValue: 0,
       duration: 500,
@@ -113,14 +126,32 @@ export default function EventsBottomView() {
             inputRange: [0, 1],
             outputRange: [
               bottomViewDefaultHeight,
-              bottomViewDefaultHeight + 100,
+              0.75 * props.calendarScreenViewHeight,
             ],
           }),
         }}
       >
+        <TouchableOpacity
+          onPress={() => {
+            if (isBottomViewExpanded) {
+              shrinkScrollView();
+            } else {
+              expandScrollView();
+            }
+          }}
+        >
+          <AntDesign
+            name={isBottomViewExpanded ? "caretdown" : "caretup"}
+            size={24}
+            color="white"
+            style={{ marginBottom: 12 }}
+          />
+        </TouchableOpacity>
+
         <ScrollView
           style={{
             flex: 1,
+            width: "100%",
           }}
           onScroll={(event) => {
             onScroll(event);
@@ -168,8 +199,8 @@ const makeStyles = (theme: CustomTheme) =>
     extendedBackground: {
       flex: 1,
       width: "100%",
-      // backgroundColor: theme.colors.paperBackground,
-      backgroundColor: "red",
+      backgroundColor: theme.colors.paperBackground,
+      // backgroundColor: "red",
     },
     bottomSheet: {
       position: "absolute",
@@ -182,8 +213,11 @@ const makeStyles = (theme: CustomTheme) =>
       borderTopLeftRadius: 24,
       borderTopRightRadius: 24,
 
-      paddingVertical: 24,
-      paddingHorizontal: 26,
+      paddingVertical: 12,
+      paddingHorizontal: 20,
+
+      display: "flex",
+      alignItems: "center",
     },
     bottomSheetContent: {
       display: "flex",
