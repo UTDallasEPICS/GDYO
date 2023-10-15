@@ -3,8 +3,8 @@ import { report } from "@/utils/error";
 import context from "@/context";
 const router = express.Router();
 
-router.post("/add-single-event", async (req, res) => {
-  const { prisma } = context
+router.post("/add-single-event", express.json(), async (req, res) => {
+  const { prisma } = context;
   try {
     const eventData = req.body as {
       name: string;
@@ -13,6 +13,12 @@ router.post("/add-single-event", async (req, res) => {
       location: string;
       description: string;
     };
+    const startDate = new Date(eventData.startTime);
+    const endDate = new Date(eventData.endTime);
+
+    if (endDate <= startDate) {
+      return res.status(400).json({ error: "Bad Time Range" });
+    }
     const createdEvent = await prisma.event.create({
       data: {
         name: eventData.name,
@@ -25,12 +31,11 @@ router.post("/add-single-event", async (req, res) => {
     res.json({ message: "Event added", event: createdEvent });
   } catch (error) {
     report(error);
-    res.status(500).json({ error: "internal Server error" });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-
-router.get("/fetch-time-specific-events", async (req, res) => {
+router.get("/fetch-time-within-time-range", async (req, res) => {
   const { prisma } = context;
   try {
     const { startTime, endTime } = req.query as {
@@ -52,10 +57,12 @@ router.get("/fetch-time-specific-events", async (req, res) => {
           { endTime: { lte: endDate } }
         ]
       }
-    })
+    });
+
+    res.json({ events });
   } catch (error) {
     report(error);
-    res.status(500).json({ error: "internal Server error" });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
