@@ -1,6 +1,7 @@
-import express from "express";
-import { report } from "@/utils/error";
+import express, { Router } from "express";
+
 import context from "@/context";
+import { report } from "@/utils/error";
 const router = express.Router();
 
 router.post("/add-single-event", express.json(), async (req, res) => {
@@ -25,8 +26,8 @@ router.post("/add-single-event", express.json(), async (req, res) => {
         startTime: eventData.startTime,
         endTime: eventData.endTime,
         location: eventData.location,
-        description: eventData.description
-      }
+        description: eventData.description,
+      },
     });
     res.json({ message: "Event added", event: createdEvent });
   } catch (error) {
@@ -35,7 +36,7 @@ router.post("/add-single-event", express.json(), async (req, res) => {
   }
 });
 
-router.get("/fetch-time-within-time-range", async (req, res) => {
+router.get("/fetch-events-within-time-range", async (req, res) => {
   const { prisma } = context;
   try {
     const { startTime, endTime } = req.query as {
@@ -52,11 +53,8 @@ router.get("/fetch-time-within-time-range", async (req, res) => {
 
     const events = await prisma.event.findMany({
       where: {
-        AND: [
-          { startTime: { gte: startDate } },
-          { endTime: { lte: endDate } }
-        ]
-      }
+        AND: [{ startTime: { gte: startDate } }, { endTime: { lte: endDate } }],
+      },
     });
 
     res.json({ events });
