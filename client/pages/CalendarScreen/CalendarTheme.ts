@@ -31,9 +31,10 @@ export const generateTheme = (appTheme: typeof Theme): ExtendedTheme => {
     dayTextColor: "white", // Text color for all days in the chosen month
     textSectionTitleColor: "white", // Text color for Mon, Tue, ...
     monthTextColor: "white", // Text color for month header
-    textDisabledColor: appTheme.colors.paperSecondaryText, // Text color for days in non-chosen month
+    textDisabledColor: appTheme.colors.disabledText, // Text color for days in non-chosen month
 
-    todayTextColor: appTheme.colors.highlightText,
+    todayTextColor: "white",
+    todayBackgroundColor: appTheme.colors.paperBackgroundHighlightBright,
 
     textMonthFontSize: 25,
     textMonthFontWeight: "700",

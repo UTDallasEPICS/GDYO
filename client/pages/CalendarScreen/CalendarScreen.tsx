@@ -48,7 +48,7 @@ export default function CalendarScreen() {
   }, []);
 
   useEffect(() => {
-    console.log("---", eventsOnDate[chosenDate]);
+    console.log("--- Events on chosen date:", eventsOnDate[chosenDate]);
   }, [chosenDate, JSON.stringify(eventsOnDate)]);
 
   const onDayPress = (date: DateData) => {

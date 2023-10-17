@@ -17,16 +17,11 @@ type Props = {
 };
 
 export default function EventsBottomView(props: Props) {
-  // min time between scroll events (in milliseconds)
-  const minScrollEventThrottle = 100;
-
   // min up/down scroll distance to trigger animation
   const offsetThrottle = 10;
 
   const scrollViewAnim = React.useRef(new Animated.Value(0)).current; // We will set value 0 or 1 only
   let prevOffset = React.useRef(0).current;
-  // used to throttle scroll events
-  let lastScrollEventDateTime = React.useRef(Date.now()).current;
   // used to prevent any other animations during one animation
   let isAnimating = React.useRef(false).current;
 
@@ -34,6 +29,8 @@ export default function EventsBottomView(props: Props) {
   const styles = makeStyles(theme);
 
   const [bottomViewDefaultHeight, setBottomViewDefaultHeight] = useState(0);
+  const [bottomViewInnerContentHeight, setBottomViewInnerContentHeight] =
+    useState(0);
   const [isBottomViewExpanded, setIsBottomViewExpanded] = useState(false);
 
   const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -44,32 +41,29 @@ export default function EventsBottomView(props: Props) {
     const diff = currentOffset - prevOffset;
 
     if (
-      Date.now() - lastScrollEventDateTime < minScrollEventThrottle || // Prevent too many events happening at once. Throttling by time between scroll activations.
-      Math.abs(diff) < offsetThrottle || // Check offset difference
-      isAnimating // Check is animating
+      isAnimating || // Check is animating
+      Math.abs(diff) < offsetThrottle // Check offset difference)
     ) {
-      // console.log('throttling!')
       prevOffset = currentOffset;
       return;
     }
 
-    lastScrollEventDateTime = Date.now();
     prevOffset = currentOffset;
 
     // if (diff < 0) {
     //   // Scrolling up
     //   shrinkScrollView();
+    //   return;
     // }
 
     if (diff >= 0) {
       // Scrolling down
       expandScrollView();
+      return;
     }
   };
 
   const expandScrollView = () => {
-    // console.log("--- Expand!");
-
     if (isAnimating) {
       return;
     }
@@ -89,8 +83,6 @@ export default function EventsBottomView(props: Props) {
   };
 
   const shrinkScrollView = () => {
-    // console.log("--- Shrink!");
-
     if (isAnimating) {
       return;
     }
@@ -121,6 +113,9 @@ export default function EventsBottomView(props: Props) {
       <Animated.View
         style={{
           ...styles.bottomSheet,
+
+          // inner content height + padding top + padding bottom + caret height + caret's margin bottom + WITHOUT extra space for scrolling
+          maxHeight: bottomViewInnerContentHeight + 12 * 2 + 24.5 + 12,
 
           height: scrollViewAnim.interpolate({
             inputRange: [0, 1],
@@ -153,32 +148,46 @@ export default function EventsBottomView(props: Props) {
             flex: 1,
             width: "100%",
           }}
+          scrollEventThrottle={100}
+          onScrollEndDrag={(event) => {
+            // Handle when scroll to top and scroll action ends => Shrink scroll view
+            if (event.nativeEvent.contentOffset.y <= 0) {
+              prevOffset = event.nativeEvent.contentOffset.y;
+              shrinkScrollView();
+              return;
+            }
+          }}
           onScroll={(event) => {
             onScroll(event);
           }}
         >
-          <View style={styles.bottomSheetContent}>
+          <View
+            style={styles.bottomSheetContent}
+            onLayout={(event) => {
+              setBottomViewInnerContentHeight(event.nativeEvent.layout.height);
+            }}
+          >
             {[
               "#1A4B9C",
               "#FC32F4",
               "#32FCC9",
-              "#FC8F32",
-              "#5432FC",
-              "#4CFC32",
-              "#FC3287",
-              "#32C2FC",
-              "#FCFC32",
-              "#C132FC",
-              "#32FC86",
-              "#FC4B32",
-              "#3255FC",
-              "#90FC32",
-              "#FC32CB",
-              "#32FCF3",
-              "#FCB832",
-              "#7D32FC",
-              "#32FC42",
-              "#FC325D",
+              // "#FC8F32",
+              // "#5432FC",
+              // "#4CFC32",
+              // "#FC3287",
+              // "#32C2FC",
+              // "#FCFC32",
+              // "#C132FC",
+              // // "#32FC86",
+              // "#FC4B32",
+              // "#3255FC",
+              // "#90FC32",
+              // "#FC32CB",
+              // "#32FCF3",
+              // "#FCB832",
+              // "#7D32FC",
+              // "#32FC42",
+              // "#FC325D",
             ].map((color, i) => (
               <View
                 key={i}
@@ -208,7 +217,7 @@ const makeStyles = (theme: CustomTheme) =>
       right: 0,
       bottom: 0,
 
-      backgroundColor: theme.colors.background,
+      backgroundColor: theme.colors.paperBackgroundDark,
 
       borderTopLeftRadius: 24,
       borderTopRightRadius: 24,
@@ -223,5 +232,6 @@ const makeStyles = (theme: CustomTheme) =>
       display: "flex",
       alignItems: "center",
       gap: 20,
+      marginBottom: 1, // Extra space for scrolling
     },
   });
