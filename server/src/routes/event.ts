@@ -1,7 +1,8 @@
-import express, { Router } from "express";
+import express from "express";
 
 import context from "@/context";
 import { report } from "@/utils/error";
+
 const router = express.Router();
 
 router.post("/add-single-event", express.json(), async (req, res) => {
@@ -14,12 +15,14 @@ router.post("/add-single-event", express.json(), async (req, res) => {
       location: string;
       description: string;
     };
+
     const startDate = new Date(eventData.startTime);
     const endDate = new Date(eventData.endTime);
 
     if (endDate <= startDate) {
       return res.status(400).json({ error: "Bad Time Range" });
     }
+
     const createdEvent = await prisma.event.create({
       data: {
         name: eventData.name,
