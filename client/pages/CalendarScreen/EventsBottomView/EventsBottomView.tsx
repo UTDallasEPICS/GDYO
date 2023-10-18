@@ -15,6 +15,7 @@ import { CustomTheme, useCustomTheme } from "utils/theme";
 type Props = {
   calendarScreenViewHeight: number;
 };
+import EventsItem from "./EventsItem";
 
 export default function EventsBottomView(props: Props) {
   // min up/down scroll distance to trigger animation
@@ -143,6 +144,10 @@ export default function EventsBottomView(props: Props) {
           />
         </TouchableOpacity>
 
+        <Text style={{ fontWeight: "700", color: "#C9C4C4" }}>
+          Oct 15, 2023
+        </Text>
+
         <ScrollView
           style={{
             flex: 1,
@@ -167,35 +172,37 @@ export default function EventsBottomView(props: Props) {
               setBottomViewInnerContentHeight(event.nativeEvent.layout.height);
             }}
           >
-            {[
-              "#1A4B9C",
+            <EventsItem />
+
+            {/* {[
+              "#735BF1",
               "#FC32F4",
               "#32FCC9",
-              // "#FC8F32",
-              // "#5432FC",
-              // "#4CFC32",
-              // "#FC3287",
-              // "#32C2FC",
-              // "#FCFC32",
-              // "#C132FC",
-              // // "#32FC86",
-              // "#FC4B32",
-              // "#3255FC",
-              // "#90FC32",
-              // "#FC32CB",
-              // "#32FCF3",
-              // "#FCB832",
-              // "#7D32FC",
-              // "#32FC42",
-              // "#FC325D",
+              "#FC8F32",
+              "#5432FC",
+              "#4CFC32",
+              "#FC3287",
+              "#32C2FC",
+              "#FCFC32",
+              "#C132FC",
+              "#32FC86",
+              "#FC4B32",
+              "#3255FC",
+              "#90FC32",
+              "#FC32CB",
+              "#32FCF3",
+              "#FCB832",
+              "#7D32FC",
+              "#32FC42",
+              "#FC325D",
             ].map((color, i) => (
               <View
                 key={i}
                 style={{ backgroundColor: color, height: 60, width: "100%" }}
               >
-                <Text>Test</Text>
+                <Text>TestingText</Text>
               </View>
-            ))}
+            ))} */}
           </View>
         </ScrollView>
       </Animated.View>
