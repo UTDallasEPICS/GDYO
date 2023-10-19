@@ -18,7 +18,7 @@
     "clean-env": "rimraf .env"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node ./prisma/seed.ts"
   },
   "author": "",
   "license": "ISC",
