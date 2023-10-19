@@ -1,11 +1,12 @@
 import { AntDesign } from "@expo/vector-icons";
 import { CalendarEvent, fetchCalendarEvents } from "models/CalendarEvent";
 import moment from "moment";
-import React from "react";
 import { useEffect, useState } from "react";
+import React from "react";
 import { SafeAreaView, StyleSheet, View } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { MarkedDates } from "react-native-calendars/src/types";
+import SafeAreaViewExtendedStyle from "styles/SafeAreaViewExtendedStyle";
 import { report } from "utils/error";
 import { CustomTheme, useCustomTheme } from "utils/theme";
 
@@ -103,7 +104,12 @@ export default function CalendarScreen() {
         setCalendarScreenViewHeight(event.nativeEvent.layout.height);
       }}
     >
-      <SafeAreaView style={styles.calendarWrapper}>
+      <SafeAreaView
+        style={{
+          ...SafeAreaViewExtendedStyle.AndroidSafeArea,
+          ...styles.calendarWrapper,
+        }}
+      >
         <Calendar
           initialDate={chosenDate} // https://github.com/wix/react-native-calendars/issues/1280
           theme={generateTheme(theme)}
