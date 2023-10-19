@@ -1,18 +1,30 @@
 import { AntDesign } from "@expo/vector-icons";
-import { CalendarEvent, fetchCalendarEvents } from "models/Event";
+import { CalendarEvent, fetchCalendarEvents } from "models/CalendarEvent";
 import moment from "moment";
+import React from "react";
 import { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { SafeAreaView, StyleSheet, View } from "react-native";
 import { Calendar } from "react-native-calendars";
-import { DateData, MarkedDates } from "react-native-calendars/src/types";
+import { MarkedDates } from "react-native-calendars/src/types";
 import { report } from "utils/error";
-import { useCustomTheme } from "utils/theme";
+import { CustomTheme, useCustomTheme } from "utils/theme";
 
 import { generateTheme } from "./CalendarTheme";
 import EventsBottomView from "./EventsBottomView/EventsBottomView";
 
+const EventSequenceColorsOnCalendar = [
+  "rgba(109, 41, 246, 1)",
+  "rgba(255, 166, 158, 1)",
+  "rgba(255, 255, 255, 0.3)", // Show this fading when there are 3 or more events
+];
+
 export default function CalendarScreen() {
+  // --- Hooks
+
   const theme = useCustomTheme();
+  const styles = makeStyles(theme);
+
+  // --- States
 
   // https://stackoverflow.com/questions/59598513/highlight-pressedselected-date-in-react-native-calendars
   const [chosenDate, setChosenDate] = useState<string>(
@@ -26,6 +38,8 @@ export default function CalendarScreen() {
   >({});
 
   const [calendarScreenViewHeight, setCalendarScreenViewHeight] = useState(0);
+
+  // --- Effects
 
   useEffect(() => {
     fetchCalendarEvents()
@@ -47,21 +61,7 @@ export default function CalendarScreen() {
       });
   }, []);
 
-  useEffect(() => {
-    console.log("--- Events on chosen date:", eventsOnDate[chosenDate]);
-  }, [chosenDate, JSON.stringify(eventsOnDate)]);
-
-  const onDayPress = (date: DateData) => {
-    setChosenDate(date.dateString);
-  };
-
   const getMarkedEvents = (): MarkedDates => {
-    const colors = [
-      "rgba(109, 41, 246, 1)",
-      "rgba(255, 166, 158, 1)",
-      "rgba(255, 255, 255, 0.3)",
-    ];
-
     const marked: MarkedDates = {};
 
     events.forEach((event) => {
@@ -79,7 +79,10 @@ export default function CalendarScreen() {
         marked[key].periods.push({
           startingDay: true,
           endingDay: true,
-          color: colors[marked[key].periods.length % colors.length],
+          color:
+            EventSequenceColorsOnCalendar[
+              marked[key].periods.length % EventSequenceColorsOnCalendar.length
+            ],
         });
       }
     });
@@ -100,53 +103,55 @@ export default function CalendarScreen() {
         setCalendarScreenViewHeight(event.nativeEvent.layout.height);
       }}
     >
-      <Calendar
-        style={{
-          paddingTop: 50,
-        }}
-        theme={generateTheme(theme)}
-        firstDay={1} // Start from Monday
-        renderArrow={(direction) => (
-          <AntDesign
-            style={{
-              backgroundColor: "rgba(255, 255, 255, 0.2)",
-              borderRadius: 22,
-              overflow: "hidden",
-              padding: 8,
-            }}
-            name={direction === "left" ? "arrowleft" : "arrowright"}
-            color="white"
-            size={28}
-          />
-        )}
-        onDayPress={onDayPress}
-        markingType="multi-period"
-        markedDates={getMarkedEvents()}
-      />
+      <SafeAreaView style={styles.calendarWrapper}>
+        <Calendar
+          initialDate={chosenDate} // https://github.com/wix/react-native-calendars/issues/1280
+          theme={generateTheme(theme)}
+          enableSwipeMonths={true}
+          firstDay={1} // Start from Monday
+          renderArrow={(direction) => (
+            <AntDesign
+              style={{
+                backgroundColor: "rgba(255, 255, 255, 0.2)",
+                borderRadius: 22,
+                overflow: "hidden",
+                padding: 8,
+              }}
+              name={direction === "left" ? "arrowleft" : "arrowright"}
+              color="white"
+              size={28}
+            />
+          )}
+          onMonthChange={(date) => {
+            setChosenDate(date.dateString);
+          }}
+          onDayPress={(date) => {
+            setChosenDate(date.dateString);
+          }}
+          markingType="multi-period"
+          markedDates={getMarkedEvents()}
+        />
+      </SafeAreaView>
 
-      <EventsBottomView calendarScreenViewHeight={calendarScreenViewHeight} />
+      <EventsBottomView
+        calendarScreenViewHeight={calendarScreenViewHeight}
+        eventsOnDate={eventsOnDate}
+        chosenDate={chosenDate}
+        setChosenDate={setChosenDate}
+      />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-  },
+const makeStyles = (theme: CustomTheme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+    },
 
-  scrollView: {
-    flex: 1,
-    width: "100%",
-    display: "flex",
-  },
-
-  eventsDayView: {
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-    gap: 20,
-    padding: 20,
-  },
-});
+    calendarWrapper: {
+      backgroundColor: theme.colors.paperBackgroundHighlight,
+    },
+  });

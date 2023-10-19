@@ -41,7 +41,7 @@ export const generateEventsInSameColumnWithToday = (): CalendarEvent[] => {
   while (startDate < lastDateOfMonth) {
     events.push({
       id: id.toString(),
-      name: TestEventNames[Math.round(Math.random() * TestEventNames.length)],
+      name: TestEventNames[Math.floor(Math.random() * TestEventNames.length)],
       startTime: new Date(
         today.getFullYear(),
         today.getMonth(),
@@ -56,13 +56,13 @@ export const generateEventsInSameColumnWithToday = (): CalendarEvent[] => {
         13,
         0
       ),
-      location: TestLocations[Math.round(Math.random() * TestLocations.length)],
+      location: TestLocations[Math.floor(Math.random() * TestLocations.length)],
       description: "",
     });
 
     events.push({
       id: id.toString(),
-      name: TestEventNames[Math.round(Math.random() * TestEventNames.length)],
+      name: TestEventNames[Math.floor(Math.random() * TestEventNames.length)],
       startTime: new Date(
         today.getFullYear(),
         today.getMonth(),
@@ -77,13 +77,13 @@ export const generateEventsInSameColumnWithToday = (): CalendarEvent[] => {
         15,
         0
       ),
-      location: TestLocations[Math.round(Math.random() * TestLocations.length)],
+      location: TestLocations[Math.floor(Math.random() * TestLocations.length)],
       description: "",
     });
 
     events.push({
       id: id.toString(),
-      name: TestEventNames[Math.round(Math.random() * TestEventNames.length)],
+      name: TestEventNames[Math.floor(Math.random() * TestEventNames.length)],
       startTime: new Date(
         today.getFullYear(),
         today.getMonth(),
@@ -98,7 +98,7 @@ export const generateEventsInSameColumnWithToday = (): CalendarEvent[] => {
         16,
         0
       ),
-      location: TestLocations[Math.round(Math.random() * TestLocations.length)],
+      location: TestLocations[Math.floor(Math.random() * TestLocations.length)],
       description: "",
     });
 
