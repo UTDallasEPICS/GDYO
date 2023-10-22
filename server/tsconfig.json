@@ -12,7 +12,8 @@
       "*": ["node_modules/*"],
       "@/*": ["src/*"]
     },
-    "typeRoots": ["./src/@types", "node_modules/@types"]
+    "typeRoots": ["./src/@types", "node_modules/@types"],
+    "resolveJsonModule": true
   },
   "include": ["src/**/*"]
 }
