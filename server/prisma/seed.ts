@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 // const data_size = 50;
 
 const main = async () => {
-  Promise.all(
+  await Promise.all(
     events.map(async (ev) => {
       const eventInput: Prisma.EventCreateInput = {
         name: ev.eventName,
