@@ -3,20 +3,22 @@ import { PrismaClient, Prisma } from "@prisma/client";
 import events from "./Event-data.json";
 
 const prisma = new PrismaClient();
-const data_size = 50;
+// const data_size = 50;
 
-async function main() {
-  for (let i = 0; i < data_size; i++) {
-    const eventInput: Prisma.EventCreateInput = {
-      name: events[i].eventName,
-      startTime: new Date(`${events[i].dob} ${events[i].startTime}`),
-      endTime: new Date(`${events[i].dob} ${events[i].endTime}`),
-      location: `${events[i].location.street} ${events[i].location.town} ${events[i].location.postcode}}`,
-      description: events[i].description,
-    };
-    await prisma.event.create({ data: eventInput });
-  }
-}
+const main = async () => {
+  Promise.all(
+    events.map(async (ev) => {
+      const eventInput: Prisma.EventCreateInput = {
+        name: ev.eventName,
+        startTime: new Date(`${ev.date} ${ev.startTime}`),
+        endTime: new Date(`${ev.date} ${ev.endTime}`),
+        location: `${ev.location.street}, ${ev.location.town}, ${ev.location.postcode}`,
+        description: ev.description,
+      };
+      await prisma.event.create({ data: eventInput });
+    })
+  );
+};
 
 main()
   .then(async () => {
