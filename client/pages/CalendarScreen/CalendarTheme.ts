@@ -39,8 +39,11 @@ export const generateTheme = (appTheme: typeof Theme): ExtendedTheme => {
     textMonthFontSize: 25,
     textMonthFontWeight: "700",
 
-    textDayHeaderFontWeight: "700",
+    textDayFontSize: 18,
     textDayFontWeight: "700",
+
+    textDayHeaderFontSize: 14,
+    textDayHeaderFontWeight: "700",
 
     "stylesheet.calendar.main": {
       container: {

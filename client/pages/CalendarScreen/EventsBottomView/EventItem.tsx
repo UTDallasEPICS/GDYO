@@ -69,7 +69,8 @@ const styles = StyleSheet.create({
   },
   eventTime: {
     color: "#C9C4C4",
-    fontSize: 14,
+    fontSize: 16,
+    fontWeight: "500",
     marginTop: 4,
   },
 });
