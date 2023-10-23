@@ -1,3 +1,4 @@
+import LoginSVG from "assets/images/GDYO_Logo_Transparent.png";
 import React from "react";
 import {
   SafeAreaView,
@@ -9,8 +10,6 @@ import {
 } from "react-native";
 import { useAuth0 } from "react-native-auth0";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-
-import LoginSVG from "@/assets/images/GDYO_Logo_Transparent.png";
 
 import CustomButton from "../components/CustomButton";
 import InputField from "../components/InputField";
