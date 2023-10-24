@@ -5,7 +5,7 @@
   "scripts": {
     "postinstall": "npm run copy-env",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run clean && tsc && node dist",
+    "start": "npm run clean && tsc & tsc-alias && node dist",
     "clean": "rimraf dist",
     "dev": "node scripts/ngrok.js",
     "dock": "docker-compose up",
@@ -46,6 +46,7 @@
     "prisma": "^5.4.2",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.8",
     "typescript": "^5.0.4"
   },
   "keywords": [],
