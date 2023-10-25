@@ -8,7 +8,13 @@ export const report = (err: any): void => {
   //   console.error(ErrorWrap(err));
   // }
 
-  console.error(ErrorWrap(err));
+  console.error(
+    JSON.stringify({
+      name: ErrorWrap(err).name,
+      message: ErrorWrap(err).message,
+      cause: ErrorWrap(err).cause,
+    })
+  );
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
