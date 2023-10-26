@@ -25,6 +25,7 @@
   "dependencies": {
     "@prisma/client": "^5.4.2",
     "cors": "^2.8.5",
+    "expo-linear-gradient": "^12.5.0",
     "express": "^4.18.2",
     "helmet": "^7.0.0"
   },

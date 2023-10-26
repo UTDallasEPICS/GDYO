@@ -1,5 +1,6 @@
-import React from "react";
+import { LinearGradient } from "expo-linear-gradient";
 import { useRef, useState } from "react";
+import React from "react";
 import {
   Animated,
   Easing,
@@ -11,6 +12,8 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { CustomTheme, useCustomTheme } from "utils/theme";
+
+import { ProfilePic } from "./Profile";
 
 enum Tab {
   ATTENDANCE = "attendance",
@@ -54,13 +57,19 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      <Animated.View
-        style={[styles.topContainer, { height: animatedHeaderHeight }]}
+      <LinearGradient
+        style={[styles.topContainer, { height: "33%" }]}
+        colors={[
+          theme.colors.paperBackground,
+          // theme.colors.paperBackgroundHighlight,
+          theme.colors.paperBackgroundHighlight,
+        ]}
+        locations={[0.156, 0.9]}
       >
-        <Animated.View style={[styles.info, { opacity: animatedInfoOpacity }]}>
-          <Text style={styles.text}>Top</Text>
+        <Animated.View style={[styles.info]}>
+          <ProfilePic />
         </Animated.View>
-
+        {/* </LinearGradient> */}
         <View style={styles.tabBar}>
           <Pressable
             style={
@@ -88,7 +97,8 @@ export default function Home() {
             <Text style={styles.text}>Managing Events</Text>
           </Pressable>
         </View>
-      </Animated.View>
+      </LinearGradient>
+      {/* </Animated.View> */}
 
       <React.Fragment>
         {tab === Tab.ATTENDANCE && (
@@ -133,6 +143,7 @@ export default function Home() {
           </ScrollView>
         )}
       </React.Fragment>
+      {/* </LinearGradient> */}
     </View>
   );
 }
@@ -143,7 +154,6 @@ const makeStyles = (theme: CustomTheme) =>
       color: theme.colors.text,
       fontSize: 16,
     },
-
     container: {
       display: "flex",
       flexDirection: "column",
@@ -151,15 +161,13 @@ const makeStyles = (theme: CustomTheme) =>
     },
 
     topContainer: {
-      backgroundColor: "blue",
+      backgroundColor: theme.colors.paperBackground,
       display: "flex",
     },
 
     info: {
       flex: 1,
       display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
     },
 
     tabBar: {
