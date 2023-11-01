@@ -1,6 +1,7 @@
 import { AntDesign } from "@expo/vector-icons";
 import { CalendarEvent, fetchCalendarEvents } from "models/CalendarEvent";
 import moment from "moment";
+import queryString from "query-string";
 import { useEffect, useState } from "react";
 import React from "react";
 import { SafeAreaView, StyleSheet, View } from "react-native";
@@ -41,6 +42,48 @@ export default function CalendarScreen() {
   const [calendarScreenViewHeight, setCalendarScreenViewHeight] = useState(0);
 
   // --- Effects
+
+  useEffect(() => {
+    const queryParams = queryString.parse("");
+    queryParams.test = "Test Value";
+
+    const start = new Date(chosenDate);
+    start.setDate(0);
+
+    const end = new Date(chosenDate);
+    end.setMonth(end.getMonth() + 1);
+    end.setDate(1);
+
+    queryParams.startTime = start.toString();
+    queryParams.endTime = end.toString();
+
+    console.log("--- API url:", process.env.EXPO_PUBLIC_API_URL);
+    console.log("--- Query params:", queryParams);
+
+    fetch(
+      `${
+        process.env.EXPO_PUBLIC_API_URL
+      }/event/fetch-events-within-time-range?${queryString.stringify(
+        queryParams
+      )}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then(async (res) => {
+        console.log(res.toString());
+        const data = await res.json();
+        console.log("--- Data:", data);
+      })
+      .catch((err) => {
+        report("Error");
+        report(err);
+      });
+  }, [chosenDate]);
 
   useEffect(() => {
     fetchCalendarEvents()

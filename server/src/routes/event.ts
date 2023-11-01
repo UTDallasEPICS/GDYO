@@ -60,7 +60,8 @@ router.get("/fetch-events-within-time-range", async (req, res) => {
       },
     });
 
-    res.json({ events });
+    console.log(events);
+    res.send({ events });
   } catch (error) {
     report(error);
     res.status(500).json({ error: "Internal Server Error" });
