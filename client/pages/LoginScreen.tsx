@@ -1,4 +1,4 @@
-import LoginSVG from "assets/images/GDYO_Logo_Transparent.png";
+import LoginSVG from "assets/logo/GDYO_Logo_Transparent.png";
 import React from "react";
 import {
   SafeAreaView,

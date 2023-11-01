@@ -1,9 +1,9 @@
-import React from "react";
+import { LinearGradient } from "expo-linear-gradient";
 import { useRef, useState } from "react";
+import React from "react";
 import {
   Animated,
   Easing,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,13 +12,13 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { CustomTheme, useCustomTheme } from "utils/theme";
 
-enum Tab {
-  ATTENDANCE = "attendance",
-  EVENTS = "events",
-}
+import { PROFILE_CONTAINER_HEIGHT, ProfileContainer } from "./ProfileContainer";
+import TabNavigatorContainer, {
+  TAB_BAR_HEIGHT,
+  Tab,
+} from "./TabNavigatorContainer";
 
-const TAB_BAR_HEIGHT = 46;
-const TOP_CONTAINER_HEIGHT = 200 + TAB_BAR_HEIGHT;
+const TOP_CONTAINER_HEIGHT = PROFILE_CONTAINER_HEIGHT + TAB_BAR_HEIGHT;
 
 export default function Home() {
   const theme = useCustomTheme();
@@ -53,41 +53,29 @@ export default function Home() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.rootContainer}>
       <Animated.View
         style={[styles.topContainer, { height: animatedHeaderHeight }]}
       >
-        <Animated.View style={[styles.info, { opacity: animatedInfoOpacity }]}>
-          <Text style={styles.text}>Top</Text>
-        </Animated.View>
-
-        <View style={styles.tabBar}>
-          <Pressable
-            style={
-              tab === Tab.ATTENDANCE
-                ? { ...styles.tabBarItem, ...styles.tabBarItemChosen }
-                : styles.tabBarItem
-            }
-            onPress={() => {
-              onChangeTab(Tab.ATTENDANCE);
-            }}
+        <LinearGradient
+          style={{ flex: 1 }}
+          colors={[
+            theme.colors.paperBackground,
+            theme.colors.paperBackgroundHighlight,
+          ]}
+          locations={[0.156, 0.9]}
+        >
+          <Animated.View
+            style={[
+              styles.profileContainerWrapper,
+              { opacity: animatedInfoOpacity },
+            ]}
           >
-            <Text style={styles.text}>Attendance Tracker</Text>
-          </Pressable>
+            <ProfileContainer />
+          </Animated.View>
 
-          <Pressable
-            style={
-              tab === Tab.EVENTS
-                ? { ...styles.tabBarItem, ...styles.tabBarItemChosen }
-                : styles.tabBarItem
-            }
-            onPress={() => {
-              onChangeTab(Tab.EVENTS);
-            }}
-          >
-            <Text style={styles.text}>Managing Events</Text>
-          </Pressable>
-        </View>
+          <TabNavigatorContainer tab={tab} onChangeTab={onChangeTab} />
+        </LinearGradient>
       </Animated.View>
 
       <React.Fragment>
@@ -107,7 +95,7 @@ export default function Home() {
                 height: 1000,
               }}
             >
-              <Text style={styles.text}>Attendance</Text>
+              <Text style={styles.textBase}>Attendance</Text>
             </View>
           </ScrollView>
         )}
@@ -128,7 +116,7 @@ export default function Home() {
                 height: 1000,
               }}
             >
-              <Text style={styles.text}>Events</Text>
+              <Text style={styles.textBase}>Events</Text>
             </View>
           </ScrollView>
         )}
@@ -139,48 +127,26 @@ export default function Home() {
 
 const makeStyles = (theme: CustomTheme) =>
   StyleSheet.create({
-    text: {
-      color: theme.colors.text,
-      fontSize: 16,
-    },
-
-    container: {
-      display: "flex",
+    rootContainer: {
       flexDirection: "column",
       flex: 1,
     },
 
     topContainer: {
-      backgroundColor: "blue",
-      display: "flex",
+      backgroundColor: theme.colors.paperBackground,
     },
 
-    info: {
+    profileContainerWrapper: {
       flex: 1,
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-
-    tabBar: {
-      height: TAB_BAR_HEIGHT,
-      display: "flex",
-      flexDirection: "row",
-    },
-    tabBarItem: {
-      flex: 1,
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      paddingHorizontal: 16,
-      paddingVertical: 8,
-    },
-    tabBarItemChosen: {
-      borderBottomColor: theme.colors.primary,
-      borderBottomWidth: 4,
+      paddingBottom: 20,
     },
 
     bodyContent: {
       backgroundColor: "purple",
+    },
+    textBase: {
+      color: theme.colors.text,
+      fontSize: 18,
+      fontWeight: "700",
     },
   });
