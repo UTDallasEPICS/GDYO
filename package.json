@@ -6,5 +6,8 @@
     "renorm": "git add --renormalize ."
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@react-native-community/datetimepicker": "^7.6.1"
+  }
 }
