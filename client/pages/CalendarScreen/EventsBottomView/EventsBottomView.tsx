@@ -1,5 +1,4 @@
 import { AntDesign } from "@expo/vector-icons";
-import { CalendarEvent } from "models/CalendarEvent";
 import moment from "moment";
 import React, { Fragment, useState } from "react";
 import {
@@ -15,6 +14,7 @@ import {
 import { useSwipe } from "utils/hooks/useSwipe";
 import { CustomTheme, useCustomTheme } from "utils/theme";
 
+import { ChosenMonth, EventsRecord } from "../CalendarScreen";
 import EventItem from "./EventItem";
 
 const EventSequenceColorsOnBottomView = [
@@ -25,9 +25,10 @@ const EventSequenceColorsOnBottomView = [
 
 type Props = {
   calendarScreenViewHeight: number;
-  eventsOnDate: Record<string, CalendarEvent[]>;
+  eventsRecord: EventsRecord;
+  chosenMonth: ChosenMonth;
+  setChosenMonth: React.Dispatch<React.SetStateAction<ChosenMonth>>;
   chosenDate: string;
-  setChosenDate: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export default function EventsBottomView(props: Props) {
@@ -47,15 +48,15 @@ export default function EventsBottomView(props: Props) {
   const styles = makeStyles(theme);
 
   const onSwipeLeft = () => {
-    props.setChosenDate(
-      moment(props.chosenDate).add(1, "month").format("YYYY-MM-DD")
-    );
+    const monthTime = moment([props.chosenMonth.year, props.chosenMonth.month]);
+    monthTime.add(1, "month");
+    props.setChosenMonth({ month: monthTime.month(), year: monthTime.year() });
   };
 
   const onSwipeRight = () => {
-    props.setChosenDate(
-      moment(props.chosenDate).add(-1, "month").format("YYYY-MM-DD")
-    );
+    const monthTime = moment([props.chosenMonth.year, props.chosenMonth.month]);
+    monthTime.add(-1, "month");
+    props.setChosenMonth({ month: monthTime.month(), year: monthTime.year() });
   };
 
   const {
@@ -138,7 +139,17 @@ export default function EventsBottomView(props: Props) {
     });
   };
 
-  const events = props.eventsOnDate[props.chosenDate];
+  const chosenDateMoment = moment(props.chosenDate);
+
+  const eventsInMonth =
+    props.eventsRecord[
+      JSON.stringify({
+        month: chosenDateMoment.month(),
+        year: chosenDateMoment.year(),
+      })
+    ];
+
+  const eventsOnDate = eventsInMonth ? eventsInMonth[props.chosenDate] : [];
 
   return (
     <Fragment>
@@ -223,9 +234,9 @@ export default function EventsBottomView(props: Props) {
             }}
           >
             <React.Fragment>
-              {events &&
-                events.length !== 0 &&
-                events.map((event, index) => (
+              {eventsOnDate &&
+                eventsOnDate.length !== 0 &&
+                eventsOnDate.map((event, index) => (
                   <EventItem
                     key={index}
                     barColor={
@@ -237,7 +248,7 @@ export default function EventsBottomView(props: Props) {
                   />
                 ))}
 
-              {(!events || events.length === 0) && (
+              {(!eventsOnDate || eventsOnDate.length === 0) && (
                 <Text style={styles.noEvent}>No event on this day</Text>
               )}
             </React.Fragment>
