@@ -33,13 +33,7 @@ export default function App() {
       `${process.env.EXPO_PUBLIC_API_URL}?${queryString.stringify(
         queryParams
       )}`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }
+      { method: "GET" }
     )
       .then(async (res) => {
         const data = await res.json();

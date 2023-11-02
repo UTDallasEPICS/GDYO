@@ -47,12 +47,10 @@ export default function CalendarScreen() {
     const queryParams = queryString.parse("");
     queryParams.test = "Test Value";
 
-    const start = new Date(chosenDate);
-    start.setDate(0);
+    const date = moment(chosenDate);
 
-    const end = new Date(chosenDate);
-    end.setMonth(end.getMonth() + 1);
-    end.setDate(1);
+    const start = moment([date.year(), date.month()]);
+    const end = moment(start).endOf("month");
 
     queryParams.startTime = start.toString();
     queryParams.endTime = end.toString();
@@ -66,21 +64,13 @@ export default function CalendarScreen() {
       }/event/fetch-events-within-time-range?${queryString.stringify(
         queryParams
       )}`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }
+      { method: "GET" }
     )
       .then(async (res) => {
-        console.log(res.toString());
         const data = await res.json();
         console.log("--- Data:", data);
       })
       .catch((err) => {
-        report("Error");
         report(err);
       });
   }, [chosenDate]);
