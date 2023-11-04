@@ -12,6 +12,7 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { CustomTheme, useCustomTheme } from "utils/theme";
 
+import { EventManagementList } from "./EventManagementList-Home";
 import { PROFILE_CONTAINER_HEIGHT, ProfileContainer } from "./ProfileContainer";
 import TabNavigatorContainer, {
   TAB_BAR_HEIGHT,
@@ -116,7 +117,8 @@ export default function Home() {
                 height: 1000,
               }}
             >
-              <Text style={styles.textBase}>Events</Text>
+              <EventManagementList></EventManagementList>
+              {/* <Text style={styles.textBase}>Events</Text> */}
             </View>
           </ScrollView>
         )}
