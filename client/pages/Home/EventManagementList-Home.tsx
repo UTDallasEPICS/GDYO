@@ -1,7 +1,7 @@
 // imports go here.
 import ProfilePic from "assets/profile_pic.png";
 import react from "react";
-import { View, Image, Text, StyleSheet } from "react-native";
+import { View, Image, Text, StyleSheet, Animated } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { CustomTheme, useCustomTheme } from "utils/theme";
 
@@ -15,10 +15,9 @@ export const EventManagementList = () => {
   const insets = useSafeAreaInsets();
 
   return (
-    <View>
-      <View style={styles.textBase}>
-        <Text>hbdfuhsb</Text>
-      </View>
+    // <View>
+    <View style={styles.eventContainer}>
+      <View style={styles.eventColor}></View>
     </View>
   );
 };
@@ -26,26 +25,15 @@ export const EventManagementList = () => {
 //helper functions(like styling or whatever).
 const makeStyles = (theme: CustomTheme) =>
   StyleSheet.create({
-    rootContainer: {
-      height: PROFILE_CONTAINER_HEIGHT,
-      alignItems: "center",
-      flexDirection: "row",
-
-      paddingLeft: 10,
-      paddingRight: 10,
+    eventColor: {
+      marginRight: "90%",
+      height: "100%",
+      backgroundColor: "red",
     },
-    textBase: {
-      width: 45,
-      color: "green",
-      backgroundColor: "yellow",
-      fontSize: 20,
-      //paddingLeft: 19,
-    },
-    imageContainer: {
-      width: 45,
-      height: 30,
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
+    eventContainer: {
+      marginTop: "4%",
+      height: PROFILE_CONTAINER_HEIGHT * 0.3,
+      width: "100%",
+      backgroundColor: theme.colors.primary,
     },
   });
