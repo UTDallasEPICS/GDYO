@@ -2,13 +2,14 @@ import { AntDesign } from "@expo/vector-icons";
 import { CalendarEvent, fetchCalendarEvents } from "models/Event";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { DateData, MarkedDates } from "react-native-calendars/src/types";
 import { report } from "utils/error";
 import { useCustomTheme } from "utils/theme";
 
 import { generateTheme } from "./CalendarTheme";
+import EventEditModal from "./EventManagerModal/EventManagerModal";
 
 export default function CalendarScreen() {
   const theme = useCustomTheme();
@@ -19,6 +20,7 @@ export default function CalendarScreen() {
   );
 
   const [events, setEvents] = useState<CalendarEvent[]>([]);
+  const [isModalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     fetchCalendarEvents()
@@ -72,6 +74,14 @@ export default function CalendarScreen() {
     return marked;
   };
 
+  const onAddEvent = () => {
+    setModalVisible(true);
+    Alert.alert("Add Event", "Navigate to add event screen or show modal.");
+  };
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
   return (
     <View style={styles.container}>
       <Calendar
@@ -101,6 +111,16 @@ export default function CalendarScreen() {
       <View style={styles.subView}>
         <Text style={{ color: theme.colors.text }}>Screen 2</Text>
       </View>
+
+      <TouchableOpacity style={styles.fab} onPress={onAddEvent}>
+        <AntDesign name="plus" size={24} color="white" />
+      </TouchableOpacity>
+
+      <EventEditModal
+        visible={isModalVisible}
+        onClose={closeModal}
+        //other propos needed for modal
+      />
     </View>
   );
 }
@@ -110,6 +130,24 @@ const styles = StyleSheet.create({
     flex: 1,
     display: "flex",
     flexDirection: "column",
+  },
+
+  fab: {
+    position: "absolute",
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "0C3F4C",
+    width: 56, // Standard size for FAB
+    height: 56, // Standard size for FAB
+    borderRadius: 28, // Circular shape
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 8, // Shadow for Android
+    shadowColor: "#000", // Shadow for iOS
+    shadowOffset: { width: 0, height: 2 }, // Shadow for iOS
+    shadowOpacity: 0.25, // Shadow for iOS
+    shadowRadius: 3.84, // Shadow for iOS
   },
 
   subView: {
