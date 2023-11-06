@@ -119,7 +119,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginBottom: 20,
     color: "#FFF", //white text color for input input text
-    placeholderTextColor: "#999", // Light grey for placeholder text for contrast
     paddingHorizontal: 10, // Padding inside the input field
     borderRadius: 5, // Rounded corners for the input fields
   },
