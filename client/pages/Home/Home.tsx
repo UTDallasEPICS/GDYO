@@ -12,6 +12,7 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { CustomTheme, useCustomTheme } from "utils/theme";
 
+import Attendance from "./Attendance/Attendance";
 import { PROFILE_CONTAINER_HEIGHT, ProfileContainer } from "./ProfileContainer";
 import TabNavigatorContainer, {
   TAB_BAR_HEIGHT,
@@ -80,24 +81,11 @@ export default function Home() {
 
       <React.Fragment>
         {tab === Tab.ATTENDANCE && (
-          <ScrollView
-            style={styles.bodyContent}
-            onScroll={Animated.event(
-              [{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }],
-              { useNativeDriver: false }
-            )}
-            scrollEventThrottle={300}
-          >
-            <View
-              style={{
-                display: "flex",
-                alignItems: "center",
-                height: 1000,
-              }}
-            >
-              <Text style={styles.textBase}>Attendance</Text>
-            </View>
-          </ScrollView>
+          <Attendance
+            setScrollOffsetY={(y) => {
+              scrollOffsetY.setValue(y);
+            }}
+          />
         )}
 
         {tab === Tab.EVENTS && (
