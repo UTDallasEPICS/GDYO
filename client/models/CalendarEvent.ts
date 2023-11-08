@@ -1,8 +1,8 @@
 export type CalendarEvent = {
   id: string;
   name: string;
-  startTime: Date;
-  endTime: Date;
+  startTime: string; // Date string
+  endTime: string; // Date string
   location: string;
   description: string;
 };
@@ -48,14 +48,14 @@ export const generateEventsInSameColumnWithToday = (): CalendarEvent[] => {
         startDate,
         12,
         0
-      ),
+      ).toString(),
       endTime: new Date(
         today.getFullYear(),
         today.getMonth(),
         startDate,
         13,
         0
-      ),
+      ).toString(),
       location: TestLocations[Math.floor(Math.random() * TestLocations.length)],
       description: "",
     });
@@ -69,14 +69,14 @@ export const generateEventsInSameColumnWithToday = (): CalendarEvent[] => {
         startDate,
         14,
         0
-      ),
+      ).toString(),
       endTime: new Date(
         today.getFullYear(),
         today.getMonth(),
         startDate,
         15,
         0
-      ),
+      ).toString(),
       location: TestLocations[Math.floor(Math.random() * TestLocations.length)],
       description: "",
     });
@@ -90,14 +90,14 @@ export const generateEventsInSameColumnWithToday = (): CalendarEvent[] => {
         startDate,
         15,
         0
-      ),
+      ).toString(),
       endTime: new Date(
         today.getFullYear(),
         today.getMonth(),
         startDate,
         16,
         0
-      ),
+      ).toString(),
       location: TestLocations[Math.floor(Math.random() * TestLocations.length)],
       description: "",
     });

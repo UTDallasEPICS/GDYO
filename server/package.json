@@ -5,7 +5,7 @@
   "scripts": {
     "postinstall": "npm run copy-env",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run clean && tsc & tsc-alias && node dist",
+    "start": "npm run clean && tsc && tsc-alias && node dist",
     "clean": "rimraf dist",
     "dev": "node scripts/ngrok.js",
     "dock": "docker-compose up",

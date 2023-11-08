@@ -26,6 +26,7 @@ export default function App() {
     const queryParams = queryString.parse("");
     queryParams.test = "Test Value";
 
+    console.log();
     console.log("--- API url:", process.env.EXPO_PUBLIC_API_URL);
     console.log("--- Query params:", queryParams);
 
@@ -42,8 +43,13 @@ export default function App() {
       }
     )
       .then(async (res) => {
-        const data = await res.json();
-        console.log("--- Data:", data);
+        try {
+          const data = await res.json();
+          console.log("--- Data:", data);
+        } catch (err) {
+          const text = await res.text();
+          console.log("--- Text:", JSON.parse(text));
+        }
       })
       .catch((err) => {
         report(err);
@@ -64,6 +70,7 @@ export default function App() {
     })
       .then(async (res) => {
         const data = await res.json();
+        console.log();
         console.log("--- Post data:", data);
       })
       .catch((err) => {
