@@ -102,7 +102,7 @@ const makeStyles = (theme: CustomTheme) =>
     },
 
     textBase: {
-      color: theme.colors.text,
+      color: theme.colors.normalText,
       fontSize: 18,
       fontWeight: "700",
     },

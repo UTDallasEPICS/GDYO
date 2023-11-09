@@ -1,11 +1,13 @@
 import "expo-dev-client";
 
-import { NavigationContainer } from "@react-navigation/native";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { NavigationContainer, ThemeProvider } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import queryString from "query-string";
 import { useEffect } from "react";
 import { Auth0Provider } from "react-native-auth0";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { report } from "utils/error";
 import { Theme } from "utils/theme";
 
@@ -84,12 +86,16 @@ export default function App() {
       clientId={"umzG2Jd5sVtOKAHmySVQ49z3olmUYnD0"}
     >
       <NavigationContainer theme={Theme}>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="TabNavigator" component={TabNavigator} />
-          <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        </Stack.Navigator>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <BottomSheetModalProvider>
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="TabNavigator" component={TabNavigator} />
+              <Stack.Screen name="LoginScreen" component={LoginScreen} />
+            </Stack.Navigator>
 
-        <StatusBar style="light" />
+            <StatusBar style="light" />
+          </BottomSheetModalProvider>
+        </GestureHandlerRootView>
       </NavigationContainer>
     </Auth0Provider>
   );

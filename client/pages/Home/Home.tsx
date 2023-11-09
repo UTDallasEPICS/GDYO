@@ -133,7 +133,7 @@ const makeStyles = (theme: CustomTheme) =>
       backgroundColor: "purple",
     },
     textBase: {
-      color: theme.colors.text,
+      color: theme.colors.normalText,
       fontSize: 18,
       fontWeight: "700",
     },
