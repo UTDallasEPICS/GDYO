@@ -66,13 +66,14 @@ router.get("/fetch-events-within-time-range", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 router.get("/fetch-next-events", async (req, res) => {
   const { prisma } = context;
   try {
     // Use the current date and time as the reference for fetching the next events
     const currentDate = new Date();
     const limit = req.query.limit
-      ? parseInt(req.query.limit as string, 10)
+      ? parseInt(req.query.limit as string, 15)
       : 10;
 
     const events = await prisma.event.findMany({
