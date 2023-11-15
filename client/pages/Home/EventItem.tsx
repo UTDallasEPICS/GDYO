@@ -1,37 +1,49 @@
 // imports go here.
-import ProfilePic from "assets/profile_pic.png";
-import react from "react";
-import { View, Image, Text, StyleSheet, Animated } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+
+import { View, Text, StyleSheet } from "react-native";
 import { CustomTheme, useCustomTheme } from "utils/theme";
 
 export const PROFILE_CONTAINER_HEIGHT = 260;
-const PROFILE_PIC_HEIGHT = 155;
 
-export const EventManagementList = () => {
+type Props = {
+  date: number;
+  month: string;
+  time: string;
+  name: string;
+  place: string;
+  color: string;
+};
+
+export const EventItem = (props: Props) => {
   // JS code.
   const theme = useCustomTheme();
   const styles = makeStyles(theme);
-  const insets = useSafeAreaInsets();
+
   // get number of events
   return (
     <View style={styles.eventContainer}>
-      <View style={styles.eventArrow}></View>
+      <View
+        style={[styles.eventArrow, { borderLeftColor: props.color }]}
+      ></View>
       <View style={styles.MonthBox}>
-        <Text>Dec</Text>
-        <Text style={[{ fontSize: 40 }, { lineHeight: 43 }]}>30</Text>
+        <Text style={{ fontSize: 20 }}>{props.month}</Text>
+        <Text style={[{ fontSize: 40, lineHeight: 43 }]}>{props.date}</Text>
       </View>
       <View style={styles.EventDetailBox}>
         <Text
-          style={[styles.TextBase, { fontWeight: "normal" }, { fontSize: 13 }]}
+          style={[
+            styles.TextBase,
+            { fontWeight: "normal", fontSize: 15, paddingTop: "1%" },
+          ]}
         >
-          8:00 PM
+          {props.time}
         </Text>
-        <Text style={[styles.TextBase, { fontSize: 15 }]}>
-          GDYO Season Opener
+        <Text numberOfLines={1} style={[styles.TextBase, { fontSize: 20 }]}>
+          {props.name}
         </Text>
-        <Text style={styles.TextBase}>Moody Performance Hall</Text>
+        <Text numberOfLines={1} style={[styles.TextBase, { fontSize: 15 }]}>
+          {props.place}
+        </Text>
       </View>
     </View>
   );
@@ -47,6 +59,7 @@ const makeStyles = (theme: CustomTheme) =>
       height: PROFILE_CONTAINER_HEIGHT * 0.3,
       width: "100%",
       backgroundColor: theme.colors.primary,
+      // borderLeftColor:
     },
     MonthBox: {
       // flex: 1,
@@ -57,9 +70,9 @@ const makeStyles = (theme: CustomTheme) =>
     },
     EventDetailBox: {
       // flex: 2,
-      paddingTop: 10,
+      paddingTop: "0.5%",
       height: "100%",
-      width: "100%",
+      flex: 1,
     },
     eventArrow: {
       borderTopWidth: 38,
@@ -72,5 +85,6 @@ const makeStyles = (theme: CustomTheme) =>
     TextBase: {
       fontWeight: "bold",
       fontSize: 12,
+      // width: 100%
     },
   });
