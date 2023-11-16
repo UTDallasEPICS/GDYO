@@ -26,6 +26,7 @@ export default function Attendance(props: Props) {
   // --- Search + Attendance
 
   const [searchName, setSearchName] = useState("");
+  const [searchMode, setSearchMode] = useState(false);
 
   const [attendanceList, _setAttendanceList] = useState<AttendanceItem[]>(
     generateAttendanceItems()
@@ -125,6 +126,8 @@ export default function Attendance(props: Props) {
             <StudentListStickyHeader
               searchName={searchName}
               setSearchName={setSearchName}
+              searchMode={searchMode}
+              setSearchMode={setSearchMode}
               onSearch={onSearch}
             />
             <StudentListGrid attendanceListView={attendanceListView} />

@@ -10,6 +10,10 @@ import { ATTENDANCE_COLORS, COLUMN_WIDTH } from "./RowItem";
 type Props = {
   searchName: string;
   setSearchName: React.Dispatch<React.SetStateAction<string>>;
+
+  searchMode: boolean;
+  setSearchMode: React.Dispatch<React.SetStateAction<boolean>>;
+
   onSearch: () => void;
 };
 
@@ -23,7 +27,7 @@ export default function StudentListStickyHeader(props: Props) {
 
       <View style={styles.toolbar}>
         <View style={styles.searchBar}>
-          {props.searchName.length === 0 && (
+          {props.searchMode === false && (
             <FontAwesome
               name="search"
               size={24}
@@ -36,6 +40,12 @@ export default function StudentListStickyHeader(props: Props) {
             placeholder="Search..."
             placeholderTextColor={theme.colors.textFieldPlaceholderText}
             value={props.searchName}
+            onFocus={() => {
+              props.setSearchMode(true);
+            }}
+            onBlur={() => {
+              props.setSearchMode(false);
+            }}
             onChangeText={(text) => {
               props.setSearchName(text);
             }}
@@ -44,7 +54,7 @@ export default function StudentListStickyHeader(props: Props) {
             }}
           />
 
-          {props.searchName.length !== 0 && (
+          {props.searchMode === true && (
             <TouchableOpacity
               onPress={() => {
                 props.onSearch();
