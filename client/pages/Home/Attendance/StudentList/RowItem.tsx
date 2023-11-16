@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Row, Col } from "react-native-easy-grid";
 import { CustomTheme, useCustomTheme } from "utils/theme";
 
-export const COLUMN_WIDTH = 78;
+export const COLUMN_WIDTH = 90;
 
 export const ATTENDANCE_COLORS = {
   [AttendanceStatus.ATTENDED]: "rgba(0, 179, 131, 1)",
