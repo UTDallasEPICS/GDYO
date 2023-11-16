@@ -1,5 +1,6 @@
 import { BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
-import { useCallback, useMemo, useRef } from "react";
+import { AttendanceItem, generateAttendanceItems } from "models/Attendance";
+import { useCallback, useMemo, useRef, useState } from "react";
 import {
   Button,
   ScrollView,
@@ -11,7 +12,8 @@ import {
 import { CustomTheme, useCustomTheme } from "utils/theme";
 
 import AttendanceDetails from "./AttendanceDetails";
-import StudentList from "./StudentList";
+import StudentListGrid from "./StudentList/StudentListGrid";
+import StudentListStickyHeader from "./StudentList/StudentListStickyHeader";
 
 type Props = {
   setScrollOffsetY: (y: number) => void;
@@ -21,6 +23,36 @@ export default function Attendance(props: Props) {
   const theme = useCustomTheme();
   const styles = makeStyles(theme);
 
+  // --- Search + Attendance
+
+  const [searchName, setSearchName] = useState("");
+
+  const [attendanceList, _setAttendanceList] = useState<AttendanceItem[]>(
+    generateAttendanceItems()
+  );
+
+  const [attendanceListView, setAttendanceListView] =
+    useState<AttendanceItem[]>(attendanceList);
+
+  const onSearch = () => {
+    if (searchName.length === 0) {
+      setAttendanceListView(attendanceList);
+      return;
+    }
+
+    setAttendanceListView(
+      attendanceList.filter((item) =>
+        item.studentName.toLowerCase().includes(searchName.toLowerCase())
+      )
+    );
+  };
+
+  // --- Modal Header Handler
+
+  const [modalHeaderHeight, setModalHeaderHeight] = useState(0);
+
+  // --- Bottom Sheet Handlers
+
   // ref
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
@@ -28,7 +60,7 @@ export default function Attendance(props: Props) {
   const snapPoints = useMemo(
     () => [
       // "15%",
-      "90%",
+      "95%",
     ],
     []
   );
@@ -37,7 +69,7 @@ export default function Attendance(props: Props) {
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
-  const handleSheetChanges = useCallback((index: number) => {
+  const handleSheetChanges = useCallback((_index: number) => {
     // console.log("handleSheetChanges", index);
   }, []);
 
@@ -68,35 +100,43 @@ export default function Attendance(props: Props) {
           backgroundStyle={styles.modalBackground}
           handleIndicatorStyle={styles.modalHandleIndicator}
         >
-          <BottomSheetScrollView
-            stickyHeaderIndices={[0]}
-            style={styles.modalContent}
+          <View
+            style={styles.modalHeader}
+            onLayout={(e) => {
+              setModalHeaderHeight(e.nativeEvent.layout.height);
+            }}
           >
-            <View>
-              <View style={styles.modalHeader}>
-                <TouchableOpacity
-                  onPress={() => {
-                    bottomSheetModalRef.current?.close();
-                  }}
-                >
-                  <Text style={styles.textBold}>Cancel</Text>
-                </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                bottomSheetModalRef.current?.close();
+              }}
+            >
+              <Text style={styles.textBold}>Cancel</Text>
+            </TouchableOpacity>
 
-                <TouchableOpacity>
-                  <Text
-                    style={{ ...styles.textBold, color: theme.colors.primary }}
-                  >
-                    Save
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+            <TouchableOpacity>
+              <Text style={{ ...styles.textBold, color: theme.colors.primary }}>
+                Save
+              </Text>
+            </TouchableOpacity>
+          </View>
 
+          <BottomSheetScrollView
+            stickyHeaderIndices={[2]}
+            style={[styles.modalContent, { marginTop: modalHeaderHeight }]}
+          >
             <AttendanceDetails />
 
-            <View style={styles.modalDivider} />
+            <View style={styles.modalDividerContainer}>
+              <View style={styles.modalDivider} />
+            </View>
 
-            <StudentList />
+            <StudentListStickyHeader
+              searchName={searchName}
+              setSearchName={setSearchName}
+              onSearch={onSearch}
+            />
+            <StudentListGrid attendanceListView={attendanceListView} />
           </BottomSheetScrollView>
         </BottomSheetModal>
       </View>
@@ -140,9 +180,16 @@ const makeStyles = (theme: CustomTheme) =>
       flexDirection: "row",
       justifyContent: "space-between",
       paddingHorizontal: 20,
+      paddingBottom: 16,
       backgroundColor: theme.colors.modalBackground,
+
+      position: "absolute",
+      top: 0,
     },
 
+    modalDividerContainer: {
+      alignItems: "center",
+    },
     modalDivider: {
       width: "95%",
       borderBottomColor: "white",

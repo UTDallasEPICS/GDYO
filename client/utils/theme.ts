@@ -20,6 +20,11 @@ export const Theme = {
     paperBackgroundHighlight: "rgb(37, 103, 127)",
     paperBackgroundHighlightBright: "rgb(2, 134, 222)",
 
+    textFieldBackground: "rgba(50, 78, 88, 1)",
+    textFieldPlaceholderText: "rgba(132, 132, 132, 1)",
+
+    iconGrey: "rgba(146, 146, 146, 1)",
+
     modalBackground: "rgb(9, 26, 32)",
   },
 
