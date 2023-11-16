@@ -1,4 +1,4 @@
-import { AttendanceItem } from "models/Attendance";
+import { AttendanceItem } from "models/AttendanceItem";
 import { StyleSheet } from "react-native";
 import { Grid, Row, Col } from "react-native-easy-grid";
 import { CustomTheme, useCustomTheme } from "utils/theme";

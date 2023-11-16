@@ -1,5 +1,5 @@
 import { BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
-import { AttendanceItem, generateAttendanceItems } from "models/Attendance";
+import { AttendanceItem, generateAttendanceItems } from "models/AttendanceItem";
 import { useCallback, useMemo, useRef, useState } from "react";
 import {
   Button,
@@ -46,10 +46,6 @@ export default function Attendance(props: Props) {
       )
     );
   };
-
-  // --- Modal Header Handler
-
-  const [modalHeaderHeight, setModalHeaderHeight] = useState(0);
 
   // --- Bottom Sheet Handlers
 
@@ -100,12 +96,7 @@ export default function Attendance(props: Props) {
           backgroundStyle={styles.modalBackground}
           handleIndicatorStyle={styles.modalHandleIndicator}
         >
-          <View
-            style={styles.modalHeader}
-            onLayout={(e) => {
-              setModalHeaderHeight(e.nativeEvent.layout.height);
-            }}
-          >
+          <View style={styles.modalHeader}>
             <TouchableOpacity
               onPress={() => {
                 bottomSheetModalRef.current?.close();
@@ -123,7 +114,7 @@ export default function Attendance(props: Props) {
 
           <BottomSheetScrollView
             stickyHeaderIndices={[2]}
-            style={[styles.modalContent, { marginTop: modalHeaderHeight }]}
+            style={[styles.modalContent]}
           >
             <AttendanceDetails />
 
@@ -180,11 +171,8 @@ const makeStyles = (theme: CustomTheme) =>
       flexDirection: "row",
       justifyContent: "space-between",
       paddingHorizontal: 20,
-      paddingBottom: 16,
+      paddingBottom: 4,
       backgroundColor: theme.colors.modalBackground,
-
-      position: "absolute",
-      top: 0,
     },
 
     modalDividerContainer: {

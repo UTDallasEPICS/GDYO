@@ -1,5 +1,5 @@
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
-import { AttendanceStatus } from "models/Attendance";
+import { AttendanceStatus } from "models/AttendanceItem";
 import { View, StyleSheet, Text, TextInput } from "react-native";
 import { Row, Col } from "react-native-easy-grid";
 import { TouchableOpacity } from "react-native-gesture-handler";

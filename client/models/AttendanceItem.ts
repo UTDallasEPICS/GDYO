@@ -20,7 +20,17 @@ export const generateAttendanceItems = (): AttendanceItem[] => {
   for (let i = 0; i < 100; i++) {
     items.push(generateAttendanceItem());
   }
-  return items;
+  return items.sort((a, b) => {
+    if (a.studentName < b.studentName) {
+      return -1;
+    }
+
+    if (a.studentName === b.studentName) {
+      return 0;
+    }
+
+    return 1;
+  });
 };
 
 export const generateAttendanceItem = (): AttendanceItem => {

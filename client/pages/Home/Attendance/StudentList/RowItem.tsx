@@ -1,5 +1,5 @@
 import { FontAwesome } from "@expo/vector-icons";
-import { AttendanceItem, AttendanceStatus } from "models/Attendance";
+import { AttendanceItem, AttendanceStatus } from "models/AttendanceItem";
 import { StyleSheet, Text, View } from "react-native";
 import { Row, Col } from "react-native-easy-grid";
 import { CustomTheme, useCustomTheme } from "utils/theme";

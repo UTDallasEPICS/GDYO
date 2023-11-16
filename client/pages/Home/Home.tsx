@@ -1,18 +1,12 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { useRef, useState } from "react";
 import React from "react";
-import {
-  Animated,
-  Easing,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Animated, Easing, ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { CustomTheme, useCustomTheme } from "utils/theme";
 
 import Attendance from "./Attendance/Attendance";
+import { EventList } from "./EventList";
 import { PROFILE_CONTAINER_HEIGHT, ProfileContainer } from "./ProfileContainer";
 import TabNavigatorContainer, {
   TAB_BAR_HEIGHT,
@@ -104,7 +98,8 @@ export default function Home() {
                 height: 1000,
               }}
             >
-              <Text style={styles.textBase}>Events</Text>
+              <EventList></EventList>
+              {/* <Text style={styles.textBase}>Events</Text> */}
             </View>
           </ScrollView>
         )}
@@ -130,7 +125,7 @@ const makeStyles = (theme: CustomTheme) =>
     },
 
     bodyContent: {
-      backgroundColor: "purple",
+      backgroundColor: "black",
     },
     textBase: {
       color: theme.colors.normalText,
