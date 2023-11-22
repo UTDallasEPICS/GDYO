@@ -1,6 +1,10 @@
 import { BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
-import { AttendanceItem, generateAttendanceItems } from "models/AttendanceItem";
-import { useCallback, useMemo, useRef, useState } from "react";
+import {
+  AttendanceItem,
+  AttendanceStatus,
+  generateAttendanceItems,
+} from "models/AttendanceItem";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Button,
   ScrollView,
@@ -27,17 +31,42 @@ export default function Attendance(props: Props) {
 
   const [searchName, setSearchName] = useState("");
   const [searchMode, setSearchMode] = useState(false);
+  const [filterAttendance, setFilterAttendance] =
+    useState<AttendanceStatus>(null);
 
-  const [attendanceList, _setAttendanceList] = useState<AttendanceItem[]>(
+  const [attendanceList, setAttendanceList] = useState<AttendanceItem[]>(
     generateAttendanceItems()
   );
 
   const [attendanceListView, setAttendanceListView] =
     useState<AttendanceItem[]>(attendanceList);
 
+  useEffect(() => {
+    onSearch();
+  }, [filterAttendance]);
+
   const onSearch = () => {
     if (searchName.length === 0) {
-      setAttendanceListView(attendanceList);
+      if (filterAttendance) {
+        setAttendanceListView(
+          attendanceList.filter((item) => item.status === filterAttendance)
+        );
+      } else {
+        setAttendanceListView(attendanceList);
+      }
+
+      return;
+    }
+
+    if (filterAttendance) {
+      setAttendanceListView(
+        attendanceList.filter(
+          (item) =>
+            item.studentName.toLowerCase().includes(searchName.toLowerCase()) &&
+            item.status === filterAttendance
+        )
+      );
+
       return;
     }
 
@@ -128,9 +157,17 @@ export default function Attendance(props: Props) {
               setSearchName={setSearchName}
               searchMode={searchMode}
               setSearchMode={setSearchMode}
+              filterAttendance={filterAttendance}
+              setFilterAttendance={setFilterAttendance}
               onSearch={onSearch}
             />
-            <StudentListGrid attendanceListView={attendanceListView} />
+
+            <StudentListGrid
+              attendanceListView={attendanceListView}
+              setAttendanceListView={setAttendanceListView}
+              attendanceList={attendanceList}
+              setAttendanceList={setAttendanceList}
+            />
           </BottomSheetScrollView>
         </BottomSheetModal>
       </View>

@@ -5,7 +5,8 @@ import { Row, Col } from "react-native-easy-grid";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { CustomTheme, useCustomTheme } from "utils/theme";
 
-import { ATTENDANCE_COLORS, COLUMN_WIDTH } from "./RowItem";
+import StudentListFilter from "./StudentListFilter";
+import { ATTENDANCE_COLORS, COLUMN_WIDTH } from "./StudentRowItem";
 
 type Props = {
   searchName: string;
@@ -13,6 +14,9 @@ type Props = {
 
   searchMode: boolean;
   setSearchMode: React.Dispatch<React.SetStateAction<boolean>>;
+
+  filterAttendance: AttendanceStatus;
+  setFilterAttendance: React.Dispatch<React.SetStateAction<AttendanceStatus>>;
 
   onSearch: () => void;
 };
@@ -56,7 +60,7 @@ export default function StudentListStickyHeader(props: Props) {
 
           {props.searchMode === true && (
             <TouchableOpacity
-              onPress={() => {
+              onPressIn={() => {
                 props.onSearch();
               }}
             >
@@ -69,7 +73,10 @@ export default function StudentListStickyHeader(props: Props) {
           )}
         </View>
 
-        <FontAwesome name="filter" size={32} color={theme.colors.iconGrey} />
+        <StudentListFilter
+          filterAttendance={props.filterAttendance}
+          setFilterAttendance={props.setFilterAttendance}
+        />
       </View>
 
       <Row style={[styles.header]}>

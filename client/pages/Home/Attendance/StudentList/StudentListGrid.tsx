@@ -3,10 +3,14 @@ import { StyleSheet } from "react-native";
 import { Grid, Row, Col } from "react-native-easy-grid";
 import { CustomTheme, useCustomTheme } from "utils/theme";
 
-import RowItem, { COLUMN_WIDTH } from "./RowItem";
+import StudentRowItem, { COLUMN_WIDTH } from "./StudentRowItem";
 
 type Props = {
   attendanceListView: AttendanceItem[];
+  setAttendanceListView: React.Dispatch<React.SetStateAction<AttendanceItem[]>>;
+
+  attendanceList: AttendanceItem[];
+  setAttendanceList: React.Dispatch<React.SetStateAction<AttendanceItem[]>>;
 };
 
 export default function StudentListGrid(props: Props) {
@@ -28,7 +32,14 @@ export default function StudentListGrid(props: Props) {
       </Row>
 
       {props.attendanceListView.map((item, idx) => (
-        <RowItem key={idx} attendanceItem={item} />
+        <StudentRowItem
+          key={idx}
+          attendanceItem={item}
+          attendanceList={props.attendanceList}
+          setAttendanceList={props.setAttendanceList}
+          attendanceListView={props.attendanceListView}
+          setAttendanceListView={props.setAttendanceListView}
+        />
       ))}
     </Grid>
   );

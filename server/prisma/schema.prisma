@@ -14,8 +14,8 @@ model Event {
     // Recurring event model design for later: https://vertabelo.com/blog/again-and-again-managing-recurring-events-in-a-data-model/
     id          Int      @id @default(autoincrement())
     name        String
-    startTime   DateTime
-    endTime     DateTime
+    startTime   DateTime @db.Timestamptz()
+    endTime     DateTime @db.Timestamptz()
     location    String
     description String
 }
