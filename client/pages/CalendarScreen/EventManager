@@ -1,0 +1,69 @@
+import { eventNames } from 'process';
+import React from 'react';
+import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
+//top entry should be add event title
+//then time entry with dropdown
+//location with entry field
+//bottom component will have description 
+/<form>
+    <label>Add Event Title</label>
+        <input
+            type = "text"
+            value = {eventNames}
+
+        />
+</form>/
+
+const ModalPopup = ({visible, children}) => {
+    const [showModal, setShowModal] = React.useState(visible);
+
+    return (
+        <Modal transparent visible= {true}>
+            <View style={StyleSheet.modalBackGround}>
+                <View style ={[styles.modalContainer]}>
+                {children}
+                </View>
+            </View>
+        </Modal>
+    );
+};
+
+const App = () => {
+    const [visible, setVisible] = React.useState(false)
+    return(
+        <View style = {{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+            <ModalPopup visible = {visible}>
+                <View style={{alignItems: 'center'}}>
+                    <View style={styles.header}>
+                        <>
+                    </View>
+                </View>
+            </ModalPopup>
+            <Button title = "PlaceHolderPlusButton" onPress= {() => setVisible(true)}/>
+
+            <Modal>
+
+            </Modal>
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    modalBackround: {
+        flex:1,
+        backgroundColour: "rgba(0,0,0,0.5)",
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalContainer: {
+        width: '80%',
+        backGroundColor: 'white',
+        paddingHorizontal: 20,
+        paddingVertical: 30,
+        borderRadius: 20,
+        elevation: 20,
+        
+    },
+})
+
+
