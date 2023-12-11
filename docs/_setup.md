@@ -56,8 +56,14 @@ Assuming currently at root directory:
 3. Run the right build strategy **(EAS build or Local build)** to see the app. See [the doc](https://github.com/UTDallasEPICS/GDYO/wiki/EAS-Build-vs.-Local-Build) for more information
 
    - This step is quite complicated, so take time reading the docs and related resources
+  
+4. `npx expo start`: Run Expo app and choose the right simulator Android or IOS
 
-4. Create new terminal to continue using other commands if needed
+   - One prerequisite for this is that you need to install and set up either Android Emulator or IOS Simulator before using. There are documentations regarding how to set this up with Expo online.
+   - Android Emulator:  https://docs.expo.dev/workflow/android-studio-emulator/
+   - IOS Simulator: https://docs.expo.dev/workflow/ios-simulator/
+
+5. Create new terminal to continue using other commands if needed
 
 # What's next?
 
