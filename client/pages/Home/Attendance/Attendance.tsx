@@ -3,7 +3,7 @@ import {
   AttendanceItem,
   AttendanceStatus,
   generateAttendanceItems,
-} from "models/AttendanceItem";
+} from "@/models/AttendanceItem";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Button,
@@ -13,7 +13,7 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import { CustomTheme, useCustomTheme } from "utils/theme";
+import { CustomTheme, useCustomTheme } from "@/utils/theme";
 
 import AttendanceDetails from "./AttendanceDetails";
 import StudentListGrid from "./StudentList/StudentListGrid";

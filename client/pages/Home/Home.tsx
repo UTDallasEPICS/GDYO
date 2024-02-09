@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import React from "react";
 import { Animated, Easing, ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { CustomTheme, useCustomTheme } from "utils/theme";
+import { CustomTheme, useCustomTheme } from "@/utils/theme";
 
 import Attendance from "./Attendance/Attendance";
 import { EventList } from "./EventList";

@@ -1,9 +1,9 @@
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
-import { AttendanceStatus } from "models/AttendanceItem";
+import { AttendanceStatus } from "@/models/AttendanceItem";
 import { View, StyleSheet, Text, TextInput } from "react-native";
 import { Row, Col } from "react-native-easy-grid";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { CustomTheme, useCustomTheme } from "utils/theme";
+import { CustomTheme, useCustomTheme } from "@/utils/theme";
 
 import StudentListFilter from "./StudentListFilter";
 import { ATTENDANCE_COLORS, COLUMN_WIDTH } from "./StudentRowItem";

@@ -7,7 +7,7 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
-import { CustomTheme, useCustomTheme } from "utils/theme";
+import { CustomTheme, useCustomTheme } from "@/utils/theme";
 
 export const TAB_BAR_HEIGHT = 46;
 

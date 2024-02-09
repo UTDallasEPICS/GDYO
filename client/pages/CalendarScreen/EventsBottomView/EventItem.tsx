@@ -1,5 +1,5 @@
 import { Entypo } from "@expo/vector-icons";
-import { CalendarEvent } from "models/CalendarEvent";
+import { CalendarEvent } from "@/models/CalendarEvent";
 import moment from "moment";
 import { View, Text, StyleSheet } from "react-native";
 

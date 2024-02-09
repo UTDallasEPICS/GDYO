@@ -1,5 +1,5 @@
 import { View, StyleSheet, Text } from "react-native";
-import { CustomTheme, useCustomTheme } from "utils/theme";
+import { CustomTheme, useCustomTheme } from "@/utils/theme";
 
 export default function AttendanceDetails() {
   const theme = useCustomTheme();

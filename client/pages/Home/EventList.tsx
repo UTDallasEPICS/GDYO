@@ -1,5 +1,5 @@
 import { View } from "react-native";
-// import { CustomTheme, useCustomTheme } from "utils/theme";
+// import { CustomTheme, useCustomTheme } from "@/utils/theme";
 
 import { EventItem } from "./EventItem";
 export const EventList = () => {

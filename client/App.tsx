@@ -10,7 +10,7 @@ import { Auth0Provider } from "react-native-auth0";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { MenuProvider } from "react-native-popup-menu";
 import { report } from "utils/error";
-import { Theme } from "utils/theme";
+import { Theme } from "@/utils/theme";
 
 import TabNavigator from "./navigation/TabNavigator";
 import LoginScreen from "./pages/LoginScreen";

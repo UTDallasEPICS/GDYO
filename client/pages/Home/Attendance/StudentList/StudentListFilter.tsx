@@ -1,5 +1,5 @@
 import { FontAwesome } from "@expo/vector-icons";
-import { AttendanceStatus } from "models/AttendanceItem";
+import { AttendanceStatus } from "@/models/AttendanceItem";
 import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import {
@@ -8,7 +8,7 @@ import {
   MenuOptions,
   MenuTrigger,
 } from "react-native-popup-menu";
-import { CustomTheme, useCustomTheme } from "utils/theme";
+import { CustomTheme, useCustomTheme } from "@/utils/theme";
 
 import { ATTENDANCE_COLORS } from "./StudentRowItem";
 

@@ -1,7 +1,7 @@
-import { AttendanceItem } from "models/AttendanceItem";
+import { AttendanceItem } from "@/models/AttendanceItem";
 import { StyleSheet } from "react-native";
 import { Grid, Row, Col } from "react-native-easy-grid";
-import { CustomTheme, useCustomTheme } from "utils/theme";
+import { CustomTheme, useCustomTheme } from "@/utils/theme";
 
 import StudentRowItem, { COLUMN_WIDTH } from "./StudentRowItem";
 

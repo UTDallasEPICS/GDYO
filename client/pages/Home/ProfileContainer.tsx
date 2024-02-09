@@ -2,7 +2,7 @@ import ProfilePic from "assets/profile_pic.png";
 import React from "react";
 import { View, Image, Text, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { CustomTheme, useCustomTheme } from "utils/theme";
+import { CustomTheme, useCustomTheme } from "@/utils/theme";
 
 export const PROFILE_CONTAINER_HEIGHT = 260;
 const PROFILE_PIC_HEIGHT = 155;

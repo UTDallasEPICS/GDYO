@@ -1,9 +1,9 @@
 import { FontAwesome } from "@expo/vector-icons";
-import { AttendanceItem, AttendanceStatus } from "models/AttendanceItem";
+import { AttendanceItem, AttendanceStatus } from "@/models/AttendanceItem";
 import { StyleSheet, Text } from "react-native";
 import { Row, Col } from "react-native-easy-grid";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { CustomTheme, useCustomTheme } from "utils/theme";
+import { CustomTheme, useCustomTheme } from "@/utils/theme";
 
 export const COLUMN_WIDTH = 90;
 

@@ -1,7 +1,7 @@
 // imports go here.
 
 import { View, Text, StyleSheet } from "react-native";
-import { CustomTheme, useCustomTheme } from "utils/theme";
+import { CustomTheme, useCustomTheme } from "@/utils/theme";
 
 export const PROFILE_CONTAINER_HEIGHT = 260;
 
