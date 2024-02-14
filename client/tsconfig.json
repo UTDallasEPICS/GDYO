@@ -22,9 +22,9 @@
   "compilerOptions": {
     "types": ["node"],
     "baseUrl": ".",
-    // "paths": {
-    //   "@/*": ["/*"]
-    // },
+    "paths": {
+      "@/*": ["/*"]
+    },
     "typeRoots": ["/@types", "node_modules/@types"]
   },
 
