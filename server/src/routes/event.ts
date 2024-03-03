@@ -67,4 +67,63 @@ router.get("/fetch-events-within-time-range", async (req, res) => {
   }
 });
 
+router.get("/fetch-next-events", async (req, res) => {
+  const { prisma } = context;
+  try {
+    // Use the current date and time as the reference for fetching the next events
+    const currentDate = new Date();
+    const limit = req.query.limit
+      ? parseInt(req.query.limit as string, 15)
+      : 10;
+
+    const events = await prisma.event.findMany({
+      where: {
+        startTime: { gt: currentDate }, // Get events that start after the current date and time
+      },
+      take: limit, // Limit the number of events returned
+      orderBy: {
+        startTime: "asc", // Order by the start time in ascending order
+      },
+    });
+
+    res.json({ events });
+  } catch (error) {
+    report(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+router.get("/fetch-next-events", async (req, res) => {
+  const { prisma } = context;
+  try {
+    // Parse the 'limit' from the query string, with a default of 10 if not provided
+    const limit = req.query.limit
+      ? parseInt(req.query.limit as string, 10)
+      : 10;
+
+    // Extract 'cursor' from the query string, and ensure it's a string before parsing
+    const cursor =
+      typeof req.query.cursor === "string" ? req.query.cursor : null;
+
+    // Construct the query for Prisma, with pagination if a 'cursor' is provided
+    const events = await prisma.event.findMany({
+      where: {
+        startTime: { gt: new Date() }, // Get events that start after the current date and time
+        ...(cursor ? { id: { gt: parseInt(cursor) } } : {}), // Use cursor if provided and valid
+      },
+      take: limit,
+      orderBy: {
+        startTime: "asc",
+      },
+      ...(cursor ? { skip: 1 } : {}), // Skip the cursor event if cursor is provided
+    });
+
+    // Send the retrieved events back in the response
+    res.json({ events });
+  } catch (error) {
+    // Error handling
+    report(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 export default router;
