@@ -67,4 +67,58 @@ router.get("/fetch-events-within-time-range", async (req, res) => {
   }
 });
 
+router.put("/update-single-event/:id", express.json(), async (req, res) => {
+  const { prisma } = context;
+  try {
+    const id: string = req.params.id;
+
+    const eventData = req.body as {
+      name: string;
+      startTime: string;
+      endTime: string;
+      location: string;
+      description: string;
+    };
+
+    const startDate = new Date(eventData.startTime);
+    const endDate = new Date(eventData.endTime);
+
+    if (endDate <= startDate) {
+      return res.status(400).json({ error: "Bad Time Range" });
+    }
+
+    const updatedEvent = await prisma.event.update({
+      where: { id: Number(id) },
+      data: {
+        name: eventData.name,
+        startTime: eventData.startTime,
+        endTime: eventData.endTime,
+        location: eventData.location,
+        description: eventData.description,
+      },
+    });
+
+    res.json({ message: "Event updated", event: updatedEvent });
+  } catch (error) {
+    report(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.delete("/delete-single-event/:id", express.json(), async (req, res) => {
+  const { prisma } = context;
+  try {
+    const id: string = req.params.id;
+
+    const deletedEvent = await prisma.event.delete({
+      where: { id: Number(id) },
+    });
+
+    res.json({ message: "Event deleted", event: deletedEvent });
+  } catch (error) {
+    report(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 export default router;
