@@ -1,3 +1,4 @@
+import cors from "cors";
 import express, { Express } from "express";
 import helmet from "helmet";
 import * as http from "http";
@@ -35,7 +36,12 @@ export default class App {
 
     app.use(helmet());
     app.use(helmet.hidePoweredBy());
-
+    app.use(
+      cors({
+        credentials: true,
+        origin: "http://localhost:19006",
+      })
+    );
     // Check maintenance mode
     app.use((req, res, next) => {
       const excludePostPaths = new Set([]);

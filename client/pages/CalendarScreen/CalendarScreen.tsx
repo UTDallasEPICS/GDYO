@@ -1,5 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
-import { CalendarEvent } from "@/models/CalendarEvent";
+import { CalendarEvent } from "models/CalendarEvent";
 import moment from "moment";
 import queryString from "query-string";
 import { useEffect, useState } from "react";
@@ -9,7 +9,7 @@ import { Calendar } from "react-native-calendars";
 import { MarkedDates } from "react-native-calendars/src/types";
 import SafeAreaViewExtendedStyle from "styles/SafeAreaViewExtendedStyle";
 import { report } from "utils/error";
-import { CustomTheme, useCustomTheme } from "@/utils/theme";
+import { CustomTheme, useCustomTheme } from "utils/theme";
 import { getMonthDateRange } from "utils/time/getMonthDateRange";
 
 import { generateTheme } from "./CalendarTheme";
@@ -76,11 +76,9 @@ export default function CalendarScreen() {
     console.log();
     console.log("--- API url:", process.env.EXPO_PUBLIC_API_URL);
     console.log("--- Query params:", queryParams);
-
+    console.log(process.env.EXPO_PUBLIC_API_URL, "--test");
     fetch(
-      `${
-        process.env.EXPO_PUBLIC_API_URL
-      }/event/fetch-events-within-time-range?${queryString.stringify(
+      `http://localhost:4000/event/fetch-events-within-time-range/?${queryString.stringify(
         queryParams
       )}`,
       {
