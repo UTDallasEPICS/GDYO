@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useSwipe } from "utils/hooks/useSwipe";
+
 import { CustomTheme, useCustomTheme } from "@/utils/theme";
 
 import { ChosenMonth, EventsRecord } from "../CalendarScreen";

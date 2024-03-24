@@ -2,11 +2,20 @@ import { AntDesign } from "@expo/vector-icons";
 import { CalendarEvent } from "models/CalendarEvent";
 import moment from "moment";
 import queryString from "query-string";
-import { useEffect, useState } from "react";
 import React from "react";
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import { useEffect, useState } from "react";
+import {
+  Button,
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Modal,
+  Text,
+  TextInput,
+} from "react-native";
 import { Calendar } from "react-native-calendars";
 import { MarkedDates } from "react-native-calendars/src/types";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import SafeAreaViewExtendedStyle from "styles/SafeAreaViewExtendedStyle";
 import { report } from "utils/error";
 import { CustomTheme, useCustomTheme } from "utils/theme";
@@ -48,22 +57,65 @@ export default function CalendarScreen() {
     month: today.month(), // Month in 0 - 11
     year: today.year(),
   });
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [eventsRecord, setEventsRecord] = useState<EventsRecord>({}); // (Month, Year) -> Date -> CalendarEvent[]
 
   const [calendarScreenViewHeight, setCalendarScreenViewHeight] = useState(0);
 
-  // --- Effects
+  const [eventName, onChangeEventName] = React.useState("Event name: ");
+  const [eventDate, onChangeEventDate] = React.useState(
+    "Enter the date: YYYY-MM-DD"
+  );
+  const [eventStartTime, onChangeEventStartTime] = React.useState(
+    "Enter the start time (hh:mm)"
+  );
+  const [eventEndTime, onChangeEventEndTime] = React.useState(
+    "Enter the end time: (hh:mm)"
+  );
+  const [eventLocation, onChangeEventLocation] = React.useState("Location");
+  const [eventDescription, onChangeEventDescription] =
+    React.useState("Event Description");
 
-  useEffect(() => {
-    // Use to fetch new data for a new chosen month
+  const openModal = () => {
+    setModalVisible(true);
+  };
 
-    // If chosen month is already fetched previously, then no need to fetch again.
-    // Simple cache strategy
-    if (JSON.stringify(chosenMonth) in eventsRecord) {
-      return;
-    }
+  const closeModal = () => {
+    setModalVisible(false);
+  };
 
+  const handleAddEvent = () => {
+    const eventData = {
+      name: eventName,
+      startTime: eventDate + "T" + eventStartTime + ":00Z",
+      endTime: eventDate + "T" + eventEndTime + ":00Z",
+      location: eventLocation,
+      description: eventDescription,
+    };
+
+    console.log("--- event data:", eventData);
+
+    fetch("http://localhost:4000/event/add-single-event/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(eventData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        closeModal();
+        retrieveEvents();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        closeModal();
+      });
+  };
+
+  const retrieveEvents = () => {
     const queryParams = queryString.parse("");
     const monthDateRange = getMonthDateRange(
       chosenMonth.year,
@@ -121,6 +173,20 @@ export default function CalendarScreen() {
       .catch((err) => {
         report(err);
       });
+  };
+
+  // --- Effects
+
+  useEffect(() => {
+    // Use to fetch new data for a new chosen month
+    // If chosen month is already fetched previously, then no need to fetch again.
+    // Simple cache strategy
+    /*
+    if (JSON.stringify(chosenMonth) in eventsRecord) {
+      return;
+    }
+    */
+    retrieveEvents();
   }, [JSON.stringify(chosenMonth)]);
 
   const getMarkedEvents = (): MarkedDates => {
@@ -219,6 +285,55 @@ export default function CalendarScreen() {
           markedDates={getMarkedEvents()}
         />
       </SafeAreaView>
+      <Button title="Add Event" onPress={openModal} />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={closeModal}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>Create an Event: </Text>
+            <TextInput
+              style={styles.modalText}
+              onChangeText={onChangeEventName}
+              value={eventName}
+            />
+            <TextInput
+              style={styles.modalText}
+              onChangeText={onChangeEventDate}
+              value={eventDate}
+            />
+            <TextInput
+              style={styles.modalText}
+              onChangeText={onChangeEventStartTime}
+              value={eventStartTime}
+            />
+            <TextInput
+              style={styles.modalText}
+              onChangeText={onChangeEventEndTime}
+              value={eventEndTime}
+            />
+            <TextInput
+              style={styles.modalText}
+              onChangeText={onChangeEventLocation}
+              value={eventLocation}
+            />
+            <TextInput
+              style={styles.modalText}
+              onChangeText={onChangeEventDescription}
+              value={eventDescription}
+            />
+            <TouchableOpacity style={styles.addButton} onPress={handleAddEvent}>
+              <Text style={styles.closeButtonText}>Add</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
+              <Text style={styles.closeButtonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
 
       <EventsBottomView
         calendarScreenViewHeight={calendarScreenViewHeight}
@@ -241,5 +356,33 @@ const makeStyles = (theme: CustomTheme) =>
 
     calendarWrapper: {
       backgroundColor: theme.colors.paperBackgroundHighlight,
+    },
+    modalContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+    },
+    modalContent: {
+      backgroundColor: "white",
+      padding: 20,
+      borderRadius: 8,
+      width: "80%",
+    },
+    modalText: {
+      fontSize: 16,
+      marginBottom: 10,
+    },
+    closeButton: {
+      marginTop: 10,
+      alignSelf: "flex-end",
+    },
+    closeButtonText: {
+      color: "#007BFF",
+      fontWeight: "bold",
+    },
+    addButton: {
+      marginTop: 20,
+      alignSelf: "flex-start",
     },
   });
